@@ -7,7 +7,7 @@ Navigation
 Tags used:
 
 1. `header, main, footer` - the main semantic components for a website, top - middle - end
-2. `nav` - navigation required
+2. `nav` - used to group the navigation in one place
 3. `a` - navigation to other pages as well as the current page
 4. `aside` - a way to show content that is not the most important
 5. `div` - a standard container to use
