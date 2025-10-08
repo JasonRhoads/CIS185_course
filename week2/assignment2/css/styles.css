@@ -4,8 +4,44 @@
     box-sizing: border-box;
 }
 
+header {
+    background: green;
+    position: absolute;
+    display: flex;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+nav a {
+    display: block;
+}
 
 .home-icon {
     width : 50px;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    background: blue;
+    padding: 5% 10%;
+    width: 100%;
+}
+
+.hero h1 {
+    background: green;
+    flex-grow: 1;
+    margin: 5%;
+ }
+
+.hero-img {
+    width: 50vh;
+    border-radius: 50%;
 }
 
