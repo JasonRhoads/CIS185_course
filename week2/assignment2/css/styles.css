@@ -19,9 +19,10 @@ body {
 }
 
 header {
-    background: green;
-    position: absolute;
+    background: #2e2e2e;
+    position: fixed;
     display: flex;
+    top: 0px;
     width: 100%;
     z-index: 10;
 }
@@ -30,34 +31,99 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 7svh;
+    padding: 0 50px;
     width: 100%;
 }
 
 nav a {
-    display: inline-flex;
+    color: #f1f1f1;
+    display: block;
+    text-decoration: none;
+    padding: 0px 15px;
+    font-size: 2rem;
+    transition: all 0.5s ease-in-out;
+}
+
+nav a:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 0 5px   white,
+                0 0 25px  white,
+                0 0 50px  white,
+                0 0 200px white;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+nav div {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+}
+
+nav div a ~ a {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+
 }
 
 .home-icon {
-    width : 50px;
+    width: 100px;
 }
 
 .hero {
     display: flex;
     align-items: center;
-    background: blue;
-    padding: 5% 10%;
+    background: #f1f1f1;
+    padding: 10svh 15%;
     width: 100%;
 }
 
 .hero h1 {
-    background: green;
+    font-size: 10rem;
     flex-grow: 1;
     margin: 5%;
+    transition: all 1s ease-in-out;
  }
 
+.hero:hover h1 {
+    font-size: 5rem;
+}
 .hero-img {
-    width: 50vh;
     border-radius: 50%;
+    width: 50vh;
+    transition: all 1s ease-in-out;
+}
+
+.hero:hover .hero-img{
+    animation: rotate 2s;
+    animation-iteration-count: 1;
+    border-radius: 0%;
+    z-index: 11;
+}
+
+@keyframes rotate {
+    0% {transform: rotate(0deg);}
+    10% {transform: rotate(10deg);}
+    50% {transform: rotate(-10deg);}
+    100% {transform: rotate(0deg);}
+}
+
+.hero-bio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%
+}
+
+.bio {
+    opacity: 0;;
+    text-align: center;
+    width: 500px;
+    transition: all 1s ease-in-out;
+}
+
+.hero:hover .bio{
+    opacity: 1;
 }
 
 .projects h2{
@@ -70,7 +136,7 @@ nav a {
     justify-content: center;
     margin: 0 auto;
     max-width: 1140px;
-    min-height: 100svh;
+    min-height: 50svh;
     width: 100%;
 }
 
