@@ -65,12 +65,17 @@ header {
 .main-nav div {
     display: flex;
     justify-content: space-evenly;
-    width: 500px;
+    width: 600px;
 }
 
 .main-nav div a ~ a {
     border-left: 1px solid rgba(255, 255, 255, 0.5);
 
+}
+
+section{
+    min-height: 75svh;
+    padding-top: 7svh;
 }
 
 .home-icon {
@@ -139,15 +144,38 @@ header {
 
 h2{
     color: white;
-    font-size: 2rem;
+    font-size: 3rem;
     text-align: center;
     margin: 50px;
 }
 
-.projects {
-    padding-top: 7svh;
+.about {
+    scale: 0.8;
+    transition: all 0.5s ease-in-out;
 }
 
+.about:hover {
+    scale: 1;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+    align-content: center;
+    justify-content: center;
+    margin: 0 20%;
+}
+
+.about p{
+    color: white;
+    width: 500px;
+}
+
+.about img {
+    width: 500px;
+}
 .project-container {
     justify-content: center;
     margin: 0 auto;
@@ -299,7 +327,6 @@ h2{
     flex-direction: column;
     justify-content: center;
     margin: 50px;
-    min-height: 75svh;
 }
 
 
