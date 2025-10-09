@@ -195,14 +195,12 @@ h2{
 }
 
 .card-icon {
-    
     height: 80px;
     width: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    color: black;
     background-color: #2e2e2e;
     transition: all 0.5s ease-in-out;
 }
@@ -264,17 +262,17 @@ h2{
 }
 
 .card-box:hover .card-data h3{
-    color: #2e2e2e
+    color: black;
 }
 
 .card-data p {
     font-size: 0.9rem;
-    color: #777;
+    color: white;
     transition: all 0.5s ease-in-out;
 }
 
 .card-box:hover .card-data p{
-    color: #2e2e2e
+    color: black;
 }
 
 .card-data a{
