@@ -149,12 +149,12 @@ h2{
     margin: 50px;
 }
 
-.about {
+.grid-container{
     scale: 0.8;
     transition: all 0.5s ease-in-out;
 }
 
-.about:hover {
+.about:hover .grid-container {
     scale: 1;
 }
 
