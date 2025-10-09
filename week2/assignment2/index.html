@@ -8,12 +8,12 @@
     <link rel="icon" type="image/x-icon" href="images/laptop-code-solid-full.svg">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<body>
+<body id="home">
     <header>
         <nav class="main-nav">
-            <a href="."><i class="fa-regular fa-house home-icon"></i></a>
+            <a href="#home"><i class="fa-regular fa-house home-icon"></i></a>
             <div>
-                <a href=".">Home</a>    
+                <a href="#home">Home</a>    
                 <a href="#contact">Contact</a>
                 <a href="#projects">Projects</a>
             </div>
@@ -26,7 +26,7 @@
                 <h1>
                     Jason Rhoads
                 </h1>
-                <p class="bio">a passionate software developer who loves turning ideas into functional applications. When he’s not coding in C# or experimenting with JavaScript frameworks, Jason enjoys exploring emerging tech trends and finding creative ways to solve problems.</p>
+                <p class="bio">A passionate software developer who loves turning ideas into functional applications. When he’s not coding in C# or experimenting with JavaScript frameworks, Jason enjoys exploring emerging tech trends and finding creative ways to solve problems.</p>
             </div>
         </section>
 
@@ -76,9 +76,10 @@
                 </div>
             </div>
         </section>
-        <section class="contact">
+        <section class="contact" id="contact">
+            <h2>Want to work together?</h2>
             <form action="#" method="post">
-                <h2>Contact Me</h2>
+                <h3>Contact Me</h3>
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Your name" required>
 
@@ -93,10 +94,11 @@
         </section>
     </main>
     <footer>
+        <p>Jason Rhoads ©2025</p>
         <nav class="footer-nav">
-            <a href=".">Home</a>
-            <a href="#contact">Contact</a>
-            <a href="#portfolio">Portfolio</a>
+                <a href="#home">Home</a>
+                <a href="#contact">Contact</a>
+                <a href="#projects">Projects</a>
         </nav>
     </footer>
 </body>
