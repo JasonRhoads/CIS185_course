@@ -16,9 +16,13 @@ html {
 body {
     background-color: #222;
     color: black;
+    display: grid;
     font-family: 'poppins', sans-serif;
     font-size: .938rem;
     font-weight: 400;
+    grid-template-rows: auto 1fr auto; 
+    grid-template-columns: 1fr;       
+    
     transition: all 0.5s ease-in-out;
 }
 
@@ -78,6 +82,7 @@ header {
     align-items: center;
     background: #f1f1f1;
     padding: 10svh 15%;
+    height: 90svh;
     width: 100%;
 }
 
@@ -136,6 +141,10 @@ h2{
     font-size: 2rem;
     text-align: center;
     margin: 50px;
+}
+
+.projects {
+    padding-top: 7svh;
 }
 
 .project-container {
@@ -291,7 +300,7 @@ h2{
     flex-direction: column;
     justify-content: center;
     margin: 50px;
-    min-height: 50svh;
+    min-height: 75svh;
 }
 
 
@@ -324,16 +333,21 @@ form {
     }
 
     footer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: 4fr 3fr; /* First column is wider */
+        grid-template-rows: repeat(3, auto); /* 3 rows */
+        gap: 10px;
         margin-bottom: 10px;
+        padding: 20px;
     }
     footer p {
+        align-content: center;
         border-right: 1px solid rgba(255, 255, 255, 0.5);
         color: white;
         font-size: 3rem;
+        grid-row: 1 / 3; /* spans all 3 rows */
         padding: 10px;
+        text-align: right;
     }
 
     .footer-nav {
