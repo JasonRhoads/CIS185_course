@@ -74,8 +74,9 @@ header {
 }
 
 section{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     min-height: 75svh;
-    padding-top: 7svh;
+    padding-bottom: 7svh;
 }
 
 .home-icon {
@@ -180,6 +181,7 @@ h2{
 .about img {
     width: 500px;
 }
+
 .project-container {
     justify-content: center;
     margin: 0 auto;
@@ -364,8 +366,8 @@ form {
 
     footer {
         display: grid;
-        grid-template-columns: 4fr 3fr; /* First column is wider */
-        grid-template-rows: repeat(3, auto); /* 3 rows */
+        grid-template-columns: 4fr 3fr; 
+        grid-template-rows: repeat(4, auto); 
         gap: 10px;
         margin-bottom: 10px;
         padding: 20px;
