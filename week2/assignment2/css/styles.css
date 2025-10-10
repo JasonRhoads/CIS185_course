@@ -88,7 +88,7 @@ section{
     grid-template-rows: 1fr; /* 1 row initially */
     gap: 10px;
     background: #f1f1f1;
-    padding: 10svh 15%;
+    padding: 140px 15%;
     height: 90svh;
     justify-content: center;
     width: 100%;
