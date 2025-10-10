@@ -100,6 +100,10 @@ section{
     transition: all 1s ease-in-out;
  }
 
+.hero:hover {
+    cursor: url('/week2/assignment2/images/thumbs-up-regular-full.svg'), auto;
+}
+
 .hero:hover h1 {
     font-size: 5rem;
 }
