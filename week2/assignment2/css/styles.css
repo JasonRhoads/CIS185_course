@@ -76,7 +76,7 @@ header {
 section{
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     min-height: 75svh;
-    padding-bottom: 7svh;
+    padding-top: 7svh;
 }
 
 .home-icon {
