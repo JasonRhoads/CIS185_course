@@ -12,10 +12,11 @@
     <header>
         <nav class="main-nav">
             <a href="#home"><i class="fa-regular fa-house home-icon"></i></a>
-            <div>
-                <a href="#home">Home</a> 
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
                 <a href="version1.html">V 1</a>
-                <a href="version2.html">V 2</a>   
+                <a href="version2.html">V 2</a>      
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
@@ -37,7 +38,7 @@
         <section class="about" id="about">
             <h2>About</h2>
             <div class="grid-container">
-                <P>I am a passionate software developr who loves solving problems through creative thinking and technology. Ever since I can remember, I have enjoyed tackling puzzles and logic challenges, whether it’s a brain-teasing game, a tricky algorithm, or a real-world problem that needs a solution. Programming allows me to combine this love of problem-solving with practical skills, turning ideas into tangible software that makes tasks easier, more efficient, or just plain fun. I enjoy learning new programming languages, exploring emerging technologies, and building applications that challenge me to think critically and continuously improve. For me, writing code is more than just a technical skill—it’s a way to approach complex challenges, break them into manageable pieces, and create solutions that have a real impact.</P>
+                <P>I am a passionate software developer who loves solving problems through creative thinking and technology. Ever since I can remember, I have enjoyed tackling puzzles and logic challenges, whether it’s a brain-teasing game, a tricky algorithm, or a real-world problem that needs a solution. Programming allows me to combine this love of problem-solving with practical skills, turning ideas into tangible software that makes tasks easier, more efficient, or just plain fun. I enjoy learning new programming languages, exploring emerging technologies, and building applications that challenge me to think critically and continuously improve. For me, writing code is more than just a technical skill—it’s a way to approach complex challenges, break them into manageable pieces, and create solutions that have a real impact.</P>
                 <img src="images/programming-background-collage.jpg"/>
             </div>
         </section>
@@ -113,5 +114,15 @@
                 <a href="#contact">Contact</a>
         </nav>
     </footer>
+
+    <script>
+        // Toggle menu visibility
+        const toggle = document.getElementById("menu-toggle");
+        const links = document.getElementById("nav-links");
+
+        toggle.addEventListener("click", () => {
+        links.classList.toggle("active");
+        });
+  </script>
 </body>
 </html>
