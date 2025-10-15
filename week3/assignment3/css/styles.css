@@ -1,7 +1,24 @@
 /* importing Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
+/* variables */
+:root {
+  --bs-body-bg: #2e2e2e;
+  --bs-body-color: #f1f1f1;
 
+  --bs-dark: #2e2e2e;
+  --bs-primary: #121212;
+  --bs-secondary: #8bec5e;
+  --bs-info: #f1f1f1;
+  --bs-link-color: #121212;
+  --bs-btn-hover-color: #121212;
+
+  --bs-navbar-color: #f1f1f1;
+  --bs-navbar-hover-color: #121212;
+  --bs-navbar-bg: #2e2e2e;
+  --bs-navbar-brand-color: #f1f1f1;
+  --bs-navbar-brand-hover-color: #f1f1f1;
+}
 /* Css reset */
 *, *:after, *:before {
     padding: 0;
@@ -14,7 +31,6 @@ html {
 }
 body {
         background-color: #222;
-        color: black;
         display: grid;
         font-family: 'poppins', sans-serif;
         font-size: .938rem;
@@ -44,7 +60,7 @@ header {
     width: 100%;
 }
 
-.main-nav a, button, .footer-nav a {
+.main-nav a, button, .footer-nav a, .nav-item a {
     color: #f1f1f1;
     display: block;
     text-decoration: none;
@@ -54,7 +70,12 @@ header {
 
 }
 
-.main-nav a:hover, button:hover, .footer-nav a:hover {
+.main-nav a:hover, 
+button:hover, 
+.footer-nav a:hover, 
+nav-item:hover, .btn:hover, 
+.bootstrap footer a:hover,
+.navbar-brand:hover {
     background: white;
     color: black;
     box-shadow: 0 0 5px   white,
@@ -634,3 +655,86 @@ footer p {
     }
 }
 
+
+
+/* Bootstrap styling */
+
+.navbar-nav .nav-item {
+    text-align: center;
+    min-width: 100px;
+}
+
+.navbar-brand {
+    transition: all 0.5s ease-in-out;
+}
+
+
+.bootstrap .navbar-dark .navbar-nav .nav-link:hover,
+.bootstrap footer a:hover {
+  background-color: white;
+  color: black !important;
+  box-shadow: 0 0 5px white,
+              0 0 25px white,
+              0 0 50px white,
+              0 0 200px white;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+  transition: all 0.3s ease-in-out;
+}
+
+.bootstrap .navbar-collapse {
+  transition: all 0.4s ease;
+}
+
+.bootstrap section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.bootstrap section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero section styling */
+.bootstrap .hero-container img {
+  max-width: 250px;
+  border-radius: 50%;
+  border: 3px solid var(--bs-info);
+  box-shadow: 0 0 15px var(--bs-info);
+}
+
+.bootstrap .hero-bio-container h1 {
+  color: var(--bs-info);
+  text-shadow: 0 0 10px var(--bs-info);
+}
+
+.form-control {
+    background: #f1f1f1 !important;
+}
+
+.bootstrap footer {
+  background-color: var(--bs-dark);
+  color: var(--bs-body-color);
+}
+
+
+.bootstrap footer a {
+    color: var(--bs-body-color);
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    max-width: 70px;
+}
+/* Contact Form */
+.btn {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn:hover {
+    border: 1px solid black;
+    transition: all 0.5s ease-in-out;
+}
