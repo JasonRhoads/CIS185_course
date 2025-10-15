@@ -12,7 +12,8 @@
     <header>
         <nav class="main-nav">
             <a href="#home"><i class="fa-regular fa-house home-icon"></i></a>
-            <div>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
                 <a href="version1.html">V 1</a>
                 <a href="version2.html">V 2</a>      
@@ -24,12 +25,14 @@
     </header>
     <main>
         <section class="hero" id="hero">
-            <img class="hero-img" src="images/JasonRhoads.JPG" alt="Portrait of Jason Rhoads">
-            <div class="hero-bio-container">
-                <h1>
-                    Jason Rhoads
-                </h1>
-                <p class="bio">A passionate software developer who loves turning ideas into functional applications. When he’s not coding in C# or experimenting with JavaScript frameworks, Jason enjoys exploring emerging tech trends and finding creative ways to solve problems.</p>
+            <div class="hero-container">
+                <img class="hero-img" src="images/JasonRhoads.JPG" alt="Portrait of Jason Rhoads">
+                <div class="hero-bio-container">
+                    <h1>
+                        Jason Rhoads
+                    </h1>
+                    <p class="bio">A passionate software developer who loves turning ideas into functional applications. When he’s not coding in C# or experimenting with JavaScript frameworks, Jason enjoys exploring emerging tech trends and finding creative ways to solve problems.</p>
+                </div>
             </div>
         </section>
         <section class="about" id="about">
@@ -111,5 +114,15 @@
                 <a href="#contact">Contact</a>
         </nav>
     </footer>
+
+    <script>
+        // Toggle menu visibility
+        const toggle = document.getElementById("menu-toggle");
+        const links = document.getElementById("nav-links");
+
+        toggle.addEventListener("click", () => {
+        links.classList.toggle("active");
+        });
+  </script>
 </body>
 </html>
