@@ -8,7 +8,6 @@
 
   --bs-dark: #2e2e2e;
   --bs-primary: #121212;
-  --bs-secondary: #8bec5e;
   --bs-info: #f1f1f1;
   --bs-link-color: #121212;
   --bs-btn-hover-color: #121212;
@@ -545,10 +544,10 @@ footer p {
         transition: all 1s ease-in-out;
     }
 
-    .hero:hover .hero-img{
+    .hero:hover .hero-img, #hero:hover img{
         animation: rotate 2s;
         animation-iteration-count: 1;
-        border-radius: 0%;
+        border-radius: 0% !important;
         z-index: 11;
     }
 
@@ -567,14 +566,14 @@ footer p {
         width: 100%
     }
 
-    .bio {
+    .bio, #hero .lead {
         opacity: 0;
         margin-left: 30px;
         width: 450px;
         transition: all 1s ease-in-out;
     }
 
-    .hero:hover .bio{
+    .hero:hover .bio, #hero:hover .lead{
         opacity: 1;
     }
 
@@ -582,12 +581,12 @@ footer p {
         font-size: 3rem;
     }
 
-    .grid-container{
+    .grid-container, #about div{
         scale: 0.8;
         transition: all 0.5s ease-in-out;
     }
 
-    .about:hover .grid-container {
+    .about:hover .grid-container, #about:hover div {
         scale: .95;
     }
 
@@ -721,7 +720,6 @@ footer p {
 
 .bootstrap footer a {
     color: var(--bs-body-color);
-    display: block;
     text-decoration: none;
     transition: color 0.3s ease;
     max-width: 70px;
