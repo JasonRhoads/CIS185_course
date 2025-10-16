@@ -159,9 +159,9 @@ README should indicate where and how Flexbox, Grid, are impliment.
 This assignemnt helped me learn:
 
 1. **Semantic HTML importance** - Structuing the DOM in a human readable and accessable way.
-2. **Interactive elements** - CSS hover and animations to create unique effects.
-3. **Css Styling** - How to style elements so they stand out from other sites.
-4. **CSS integration** - How to link an external style sheet as well as one from the web.
+2. **Interactive Elements** - CSS hover and animations to create unique effects.
+3. **CSS Styling** - How to style elements so they stand out from other sites.
+4. **CSS Integration** - How to link an external style sheet as well as one from the web.
 
 ## Challenges Encountered
 
