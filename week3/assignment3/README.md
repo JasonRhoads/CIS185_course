@@ -134,6 +134,13 @@ Create two version of my portfolio. A manual response design and a Bootstrap res
     </section>
 ```
 
+## Comparison
+### Manual Responsive Design
+I am more comfortable with this approach. I like having the styling of properties in one or two classes so the HTML is cleaner. I feel like I can adjust the properties in a more fine tune way than bootstrap. This took me a long time to get the mobile and tablet versions to match the desktop.
+
+### Bootstrap Responsive Design
+This was enjoyable and challenging. There are so many tags that I did not know and had to look up. The default colors kept bleeding through and that took some troubleshooting to get sorted out. I was able to get this version done in a quicker way than manuel but it still took a while. I was not able to get the design exactly the same as the manual approach. I will try more projects in the future with Bootstrap
+
 ## Learning Outcomes
 
 This assignemnt helped me learn:
