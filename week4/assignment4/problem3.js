@@ -115,13 +115,13 @@ function curveGrades(scores, curveAmount) {
 }
 //Tests
 
-console.log(calculateAverage([80, 90, 70]));
-console.log(calculateAverage([100, 50, 75]));
-console.log(calculateAverage([]));
-console.log(dropLowestScore([80, 90, 70, 85]));
-console.log(dropLowestScore([50, 50, 75, 100]));
-console.log(getLetterGrade(95));
-console.log(getLetterGrade(82));
-console.log(getLetterGrade(58));
-console.log(curveGrades([85, 95, 70], 10));
-console.log(curveGrades([90, 96, 80], 5));
+// console.log(calculateAverage([80, 90, 70]));
+// console.log(calculateAverage([100, 50, 75]));
+// console.log(calculateAverage([]));
+// console.log(dropLowestScore([80, 90, 70, 85]));
+// console.log(dropLowestScore([50, 50, 75, 100]));
+// console.log(getLetterGrade(95));
+// console.log(getLetterGrade(82));
+// console.log(getLetterGrade(58));
+// console.log(curveGrades([85, 95, 70], 10));
+// console.log(curveGrades([90, 96, 80], 5));

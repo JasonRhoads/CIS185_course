@@ -118,7 +118,7 @@ function createCheckerboard(size) {
 }
 
 
-console.log(createPyramid(3));
-console.log(createPyramid(4));
-console.log(createNumberStaircase(5));
-console.log(createCheckerboard(4));
+// console.log(createPyramid(3));
+// console.log(createPyramid(4));
+// console.log(createNumberStaircase(5));
+// console.log(createCheckerboard(4));

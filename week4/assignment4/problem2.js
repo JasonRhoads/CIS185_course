@@ -48,7 +48,7 @@ function countLeaves(days) {
 
     //check to see if there was only 1 day for appropriate output.
     days === 1 ? leafString = "" : leafString += ")";
-    
+
     return (`${total} ${leafString}`).trim();
 }
 
@@ -75,14 +75,14 @@ function categorizeLeafColors(leaves) {
 
 
 // Tests
-console.log(countLeaves(-1));
-console.log(countLeaves(1));
-console.log(countLeaves(2));
-console.log(countLeaves(3.1));
-console.log(countLeaves(4));
-console.log(countLeaves(5));
-console.log(countLeaves(10));
+// console.log(countLeaves(-1));
+// console.log(countLeaves(1));
+// console.log(countLeaves(2));
+// console.log(countLeaves(3.1));
+// console.log(countLeaves(4));
+// console.log(countLeaves(5));
+// console.log(countLeaves(10));
 
-console.log(categorizeLeafColors(["red", "yellow", "red", "brown"]));
-console.log(categorizeLeafColors(["orange", "orange", "orange"]));
-console.log(categorizeLeafColors([]));
+// console.log(categorizeLeafColors(["red", "yellow", "red", "brown"]));
+// console.log(categorizeLeafColors(["orange", "orange", "orange"]));
+// console.log(categorizeLeafColors([]));
