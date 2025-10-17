@@ -10,14 +10,20 @@ function countLeaves(days) {
     // Day 3: 30 leaves (+10 from day 2)
     // Day 4: 40 leaves (+10 from day 3)
     // Pattern: First day doubles, then +10 each day
+
+    // Guard statment to see if days is 1 or greater and to see 
+    // that it is a whole number and not a decimal.
     if (days < 1)
         return "Invalid number of days. Please try again with a number of 1 or greater.";
     else if (!Number.isInteger(days))
         return "Invalid entry. Please enter a whole number ex 1-10";
+
+    //variables
     let total = 0;
     let dayCounter = 0;
     let leafString = "(";
     let leafCounter = 0;
+
     // Use a for loop to calculate total
     while (dayCounter < days) {
         dayCounter++;
@@ -40,7 +46,9 @@ function countLeaves(days) {
         }
     }
 
-    days === 1 ? leafString = "" : leafString += ")"
+    //check to see if there was only 1 day for appropriate output.
+    days === 1 ? leafString = "" : leafString += ")";
+    
     return (`${total} ${leafString}`).trim();
 }
 
