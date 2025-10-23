@@ -57,6 +57,8 @@ function binaryToDecimal(binary) {
 
     // regex expression to only use 0 and 1 and to make sure that a number was not entered
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
+    // ^ and $ are used to make sure the entire string is tested.
+    // [01]+ are the only allowable characters in the string and there are at least one of them
     if (!(/^[01]+$/.test(binary)) || typeof binary === "number") {
         return `Invalid binary string. ex "101010"`
     }
