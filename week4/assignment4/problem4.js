@@ -12,21 +12,23 @@ function createPyramid(height) {
     // *****
     // Return as a string with \n between lines
 
-    // Guard statement
-    if (!height || height <= 0) {
-        console.log("Please enter a valid height ex. 1-3");
-        return "";
+    // Guard statement to see if height is an integer and positive
+    
+    if (!Number.isInteger(height) || height <= 0) {
+        return "Please enter a valid height ex. 1-3";
     }
 
     let pyramidString = "";
 
+    // my own formula for the pyramid
     // Start at 1 to represent line 1 and go to equal the height. 
     for (let i = 1; i <= height; i++) {
         // Get the number of spaces based off of the height - line number
-        // Get the number of * based off of the line number plus additional *s to make the pyramid
-        pyramidString += " ".repeat(height - i) + "*".repeat(i + i - 1) + "\n";
+        // Get the number of * based off of the line number times 2 - 1 *s to make the pyramid
+        pyramidString += " ".repeat(height - i) + "*".repeat(2 * i - 1) + "\n";
     }
 
+    // the hint formula 
     // // for i = 0
     // for (let i = 0; i < height; i++) {
     //     // Get the number of spaces based off of the height - line number
@@ -47,11 +49,11 @@ function createNumberStaircase(steps) {
     // 1234
     // 12345
 
-    // Guard statement
-    if (!steps || steps <= 0) {
-        console.log("Please enter a number of steps ex. 1-5");
-        return "";
+    // Guard statement to see if steps is an integer and positive
+    if (!Number.isInteger(steps) || steps <= 0) {
+        return "Please enter a number of steps ex. 1-5";
     }
+
 
     // Declare string
     let stepsString = "";
@@ -78,11 +80,11 @@ function createCheckerboard(size) {
     // XOXO
     // OXOX
 
-    // Guard statement
-    if (!size || size <= 0) {
-        console.log("Please enter a size ex. 1-5");
-        return "";
+    // Guard statement to see if size is an integer and positive
+    if (!Number.isInteger(size) || size <= 0) {
+        return "Please enter a valid size ex. 1-5";
     }
+
 
     // Declare string
     let sizeString = "";
@@ -112,7 +114,6 @@ function createCheckerboard(size) {
         sizeString += "\n";
     }
 
-
     // Remove the last new line. Not sure if this is necessary or not.
     return sizeString.trimEnd();
 }
@@ -120,5 +121,14 @@ function createCheckerboard(size) {
 // Tests
 // console.log(createPyramid(3));
 // console.log(createPyramid(4));
-// console.log(createNumberStaircase(5));
+// console.log(createPyramid(-4));
+// console.log(createPyramid("A"));
+// console.log(createPyramid(4.6));
+// console.log(createNumberStaircase(4));
+// console.log(createNumberStaircase(4.2));
+// console.log(createNumberStaircase(-4));
+// console.log(createNumberStaircase("a"));
 // console.log(createCheckerboard(4));
+// console.log(createCheckerboard("a"));
+// console.log(createCheckerboard(-4));
+// console.log(createCheckerboard(4.6));

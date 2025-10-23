@@ -49,6 +49,7 @@ function countLeaves(days) {
     //check to see if there was only 1 day for appropriate output.
     days === 1 ? leafString = "" : leafString += ")";
 
+    // return the total number of leaves plus showing how many leaves fall for each day
     return (`${total} ${leafString}`).trim();
 }
 
@@ -56,13 +57,22 @@ function categorizeLeafColors(leaves) {
     // leaves is an array of color strings
     // Count each color and return an object
     
+
+    // Guard statement to check to see if the leaves array only has strings
+    // Loops through the leaves parameter and checks to see if each value is a string
+    // and that each value is not a number in string format
+    if (!leaves.every(leaf => typeof leaf === "string" && isNaN(leaf)))
+        return "Invalid entry: Please enter an array of color strings";
+
+    // declare an colorCount as an object
     let colorCount = {};
+
     // Loop through array and count colors
     
     leaves.forEach(leaf => {
         // Check to see if the color of leaf already is in colorCount
         if (leaf in colorCount)
-            //leaf already there so increase count by 1
+            //leaf already exists so increase count by 1
             colorCount[leaf] += 1;
         else 
             //new leaf color. set value to 1
@@ -70,19 +80,21 @@ function categorizeLeafColors(leaves) {
     });
 
 
+    // return the sorted list with number of entries
     return colorCount;
 }
 
 
 // Tests
 // console.log(countLeaves(-1));
+// console.log(countLeaves("a"));
+// console.log(countLeaves(1.1));
 // console.log(countLeaves(1));
 // console.log(countLeaves(2));
 // console.log(countLeaves(3.1));
 // console.log(countLeaves(4));
 // console.log(countLeaves(5));
 // console.log(countLeaves(10));
-
 // console.log(categorizeLeafColors(["red", "yellow", "red", "brown"]));
 // console.log(categorizeLeafColors(["orange", "orange", "orange"]));
 // console.log(categorizeLeafColors([]));

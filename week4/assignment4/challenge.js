@@ -8,10 +8,10 @@ function decimalToBinary(decimal) {
     // Convert decimal number to binary string
     // Don't use toString(2)!
 
-    // Guard statement
+    // Guard statement to see that it is positive and an integer
+    // using % 1 to see that there are no decimal places
     if (decimal < 0 || decimal % 1 !== 0) {
-        console.log("Invalid number. Please enter a number between ex 0-255")
-        return "";
+       return "Invalid number. Please enter a number between ex 0-255";
     }
 
     // Declare variables
@@ -55,6 +55,12 @@ function binaryToDecimal(binary) {
     // Convert binary string to decimal number
     // Don't use parseInt(binary, 2)!
 
+    // regex expression to only use 0 and 1 and to make sure that a number was not entered
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
+    if (!(/^[01]+$/.test(binary)) || typeof binary === "number") {
+        return `Invalid binary string. ex "101010"`
+    }
+
     // Declare variables
     let number = 0;
 
@@ -77,10 +83,9 @@ function decimalToHexadecimal(decimal) {
     // Use 0-9 and A-F for digits
     // Don't use toString(16)!
 
-    // Guard statement
+    // Guard statement to make sure decimal is an integer between 0 and 255 
     if (decimal > 255 || decimal < 0 || decimal % 1 !== 0) {
-        console.log("Invalid number. Please enter a number between 0-255")
-        return "";
+        return "Invalid number. Please enter a number between 0-255";
     }
 
     // create array of hex digits 
@@ -101,12 +106,20 @@ function decimalToHexadecimal(decimal) {
 }
 
 // Tests
-console.log(decimalToBinary(10));
-console.log(decimalToBinary(25));
-console.log(decimalToBinary(0));
-console.log(binaryToDecimal("1010"));
-console.log(binaryToDecimal("11111"));
-console.log(binaryToDecimal("0"));
-console.log(decimalToHexadecimal(255));
-console.log(decimalToHexadecimal(26));
-console.log(decimalToHexadecimal(16));
+// console.log(decimalToBinary(10));
+// console.log(decimalToBinary(25));
+// console.log(decimalToBinary(0));
+// console.log(decimalToBinary(-10));
+// console.log(decimalToBinary("A"));
+// console.log(binaryToDecimal("1010"));
+// console.log(binaryToDecimal("11111"));
+// console.log(binaryToDecimal("0"));
+// console.log(binaryToDecimal("A"));
+// console.log(binaryToDecimal(1111));
+// console.log(binaryToDecimal("-10"));
+// console.log(decimalToHexadecimal(255));
+// console.log(decimalToHexadecimal(26));
+// console.log(decimalToHexadecimal(16));
+// console.log(decimalToHexadecimal(-16));
+// console.log(decimalToHexadecimal("A"));
+
