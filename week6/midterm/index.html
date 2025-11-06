@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kids in Command</title>
+
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <header>
+            <nav class="nav main-nav">
+            <span id="home-icon" class="home-icon">KiC</span>
+            <span id="title" class="title">Kids in Command</span>
+            <span id="nav-links" class="nav-links">
+                <a href=".">Home</a>
+                <a href="help.html">Help</a>
+                <button id="settings-menu-btn" class="btn btn-settings">Settings</button>
+                </span>
+            </nav>
+        </header>
+        <main>
+            <h1>Welcome <span id="commander-name">Commander!</span></h1>
+
+            <section>
+
+            </section>
+            <section id="new-user-sign-up" class="new-user-sign-up">
+                <h2>Ready to be in Command!</h2>
+                <fieldset id="new-user-info" class="new-user-info">
+                    <legend>User Information</legend>
+                    <label for="user-first-name">Please enter your first name: </label>
+                    <input type="text" name="user-first-name" id="user-first-name" placeholder="First Name">
+                    <br />
+                    <label for="user-birthday">Please enter your birthday: </label>
+                    <input type="date" name="user-birthday" id="user-birthday" placeholder="Birthday">
+                    <br />
+                    <label for="user-favorite-color">Please choose your favorite color: </label>
+                    <input type="color" name="user-favorite-color" id="user-favorite-color" value="#FF0000">
+                </fieldset>
+            </section>
+        </main>
+        <aside id="settings-menu" class="settings-menu hidden">
+            <div>Settings <span id="menu-close">X</span></div>
+            <div class="settings-container">
+                <div class="settings-item">
+                    <div class="settings-title">
+                        Layout
+                        <div class="settings-content"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-title">
+                        Colors
+                        <div class="settings-content"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-title">
+                        Weather
+                        <div class="settings-content"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-title">
+                        Calander
+                        <div class="settings-content"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <footer>Jason Rhoads</footer>
+
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>

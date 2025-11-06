@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.visible {
+  display: inherit;
+  transition: all 0.5s ease-in-out;
+}
+
+.settings-menu {
+  background: pink;
+  height: 100vh;
+  position: absolute;
+  min-width: 75vw;
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+}
+.settings-item {
+  border: 1px solid black;
+}
