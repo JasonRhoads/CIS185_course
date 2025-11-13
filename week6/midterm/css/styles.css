@@ -14,14 +14,97 @@
   transition: all 0.5s ease-in-out;
 }
 
+/* Top navigation */
+.main-nav {
+    align-items: center;
+    justify-content: space-between;
+    background: blue;
+    display: flex;
+    height: 50px;
+    left: 0;
+    padding-inline: 20px;
+    position: fixed;
+    width: 100svw;
+    top: 0;
+}
+
+/* settings side menu */
 .settings-menu {
   background: pink;
   height: 100vh;
-  position: absolute;
+  left: -1000px;
   min-width: 75vw;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: all 1s ease-in-out;
   z-index: 10;
-  transition: all 0.5s ease-in-out;
 }
+
+.slide-right {
+    left: 0px;
+    opacity: 1;
+    transition: all 1s ease-in-out;
+}
+
 .settings-item {
   border: 1px solid black;
+}
+
+
+/* welcome page */
+
+h1 {
+    margin: 70px 0 50px;
+    text-align: center;
+}
+
+.new-user-sign-up {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Demo styles */
+
+.demo-grid-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: grid;
+    gap: 20px;
+    grid-template: 'weather important'
+                   'calander calander';
+    padding: 20px;
+    width: 45svw;
+}
+
+.demo-widget {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: green;
+    height: 200px;
+    padding: 10px;
+    max-width: 100%;
+}
+
+.weather {
+    grid-area: weather;
+}
+
+.important {
+    grid-area: important;
+}
+
+.calander {
+    grid-area: calander;
+}
+
+/* sign up area */
+
+.sign-up {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: teal;
+    padding: 20px;
 }

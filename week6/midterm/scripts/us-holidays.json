@@ -1,0 +1,75 @@
+{
+  "holidays": [
+    {
+      "name": "New Year's Day",
+      "month": 1,
+      "day": 1,
+      "description": "Celebration of the first day of the Gregorian calendar year."
+    },
+    {
+      "name": "Martin Luther King Jr. Day",
+      "month": 1,
+      "weekday": "Monday",
+      "week": 3,
+      "description": "Honors the life and achievements of Martin Luther King Jr. (Third Monday in January)."
+    },
+    {
+      "name": "Presidents' Day",
+      "month": 2,
+      "weekday": "Monday",
+      "week": 3,
+      "description": "Celebrates all U.S. presidents, especially George Washington and Abraham Lincoln."
+    },
+    {
+      "name": "Easter Sunday",
+      "movable": true,
+      "description": "Christian holiday celebrating the resurrection of Jesus Christ. Date varies each year."
+    },
+    {
+      "name": "Memorial Day",
+      "month": 5,
+      "weekday": "Monday",
+      "week": -1,
+      "description": "Remembers and honors military personnel who died in service. Last Monday in May."
+    },
+    {
+      "name": "Independence Day",
+      "month": 7,
+      "day": 4,
+      "description": "Commemorates the Declaration of Independence in 1776."
+    },
+    {
+      "name": "Labor Day",
+      "month": 9,
+      "weekday": "Monday",
+      "week": 1,
+      "description": "Honors the contributions of American workers. First Monday in September."
+    },
+    {
+      "name": "Columbus Day",
+      "month": 10,
+      "weekday": "Monday",
+      "week": 2,
+      "description": "Commemorates Christopher Columbus's landing in the Americas. Second Monday in October."
+    },
+    {
+      "name": "Veterans Day",
+      "month": 11,
+      "day": 11,
+      "description": "Honors military veterans who served in the United States Armed Forces."
+    },
+    {
+      "name": "Thanksgiving Day",
+      "month": 11,
+      "weekday": "Thursday",
+      "week": 4,
+      "description": "Day of gratitude and feasting, traditionally celebrating the fall harvest. Fourth Thursday in November."
+    },
+    {
+      "name": "Christmas Day",
+      "month": 12,
+      "day": 25,
+      "description": "Celebrates the birth of Jesus Christ; widely observed as a cultural holiday."
+    }
+  ]
+}

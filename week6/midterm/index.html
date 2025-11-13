@@ -10,63 +10,82 @@
     <body>
         <header>
             <nav class="nav main-nav">
-            <span id="home-icon" class="home-icon">KiC</span>
-            <span id="title" class="title">Kids in Command</span>
-            <span id="nav-links" class="nav-links">
-                <a href=".">Home</a>
-                <a href="help.html">Help</a>
-                <button id="settings-menu-btn" class="btn btn-settings">Settings</button>
-                </span>
+                <div id="home-icon" class="home-icon">KiC</div>
+                <div id="title" class="title">Kids in Command</div>
+                <div id="nav-links" class="nav-links">
+                    <a href=".">Home</a>
+                    <a href="help.html">Help</a>
+                    <button id="settings-menu-btn" class="btn btn-settings">Settings</button>
+                </div>
             </nav>
         </header>
         <main>
-            <h1>Welcome <span id="commander-name">Commander!</span></h1>
+            <h1 id="h1-welcome">Welcome Commanders!</h1>
 
-            <section>
+            <section id="command-center" class="command-center hidden">
+                <h1>Commander <span id="commander-name"></span></h1>
 
             </section>
             <section id="new-user-sign-up" class="new-user-sign-up">
-                <h2>Ready to be in Command!</h2>
-                <fieldset id="new-user-info" class="new-user-info">
-                    <legend>User Information</legend>
-                    <label for="user-first-name">Please enter your first name: </label>
-                    <input type="text" name="user-first-name" id="user-first-name" placeholder="First Name">
-                    <br />
-                    <label for="user-birthday">Please enter your birthday: </label>
-                    <input type="date" name="user-birthday" id="user-birthday" placeholder="Birthday">
-                    <br />
-                    <label for="user-favorite-color">Please choose your favorite color: </label>
-                    <input type="color" name="user-favorite-color" id="user-favorite-color" value="#FF0000">
-                    <br />
-                    <button class="btn btn-command" id="btn-command">Take Command Now</button>
-                </fieldset>
-            </section>
+                <div id="demo" class="demo demo-grid-container">
+                    <div id="demo-weather" class="demo-widget medium weather">Weather</div>
+                    <div id="demo-important" class="demo-widget medium important">Important</div>
+                    <div id="demo-calander" class="demo-widget large calander">Calander</div>
+                </div>
+                <div id="sign-up" class="sign-up" >
+                    <h2>Ready to be in Command!</h2>
+                    <p>Your Command Center Your Way!</p>
+                    <fieldset id="new-user-info" class="new-user-info">
+                        <legend>User Information</legend>
+                        <label for="user-first-name">Please enter your first name: </label>
+                        <input type="text" name="user-first-name" id="user-first-name" placeholder="First Name">
+                        <br />
+                        <label for="user-birthday">Please enter your birthday: </label>
+                        <input type="date" name="user-birthday" id="user-birthday" placeholder="Birthday">
+                        <br />
+                        <label for="user-favorite-color">Please choose your favorite color: </label>
+                        <input type="color" name="user-favorite-color" id="user-favorite-color" value="#FF0000">
+                        <br />
+                        <button class="btn btn-command" id="btn-command">Take Command Now</button>
+                    </fieldset>
+                </section>
+            </div>
         </main>
         <aside id="settings-menu" class="settings-menu hidden">
             <div>Settings <span id="menu-close">X</span></div>
             <div class="settings-container">
                 <div class="settings-item">
                     <div class="settings-title">
-                        Layout
+                        Layout:
                         <div class="settings-content"></div>
                     </div>
                 </div>
                 <div class="settings-item">
                     <div class="settings-title">
-                        Colors
+                        Colors:
                         <div class="settings-content"></div>
                     </div>
                 </div>
                 <div class="settings-item">
                     <div class="settings-title">
-                        Weather
+                        Weather:
                         <div class="settings-content"></div>
                     </div>
                 </div>
                 <div class="settings-item">
                     <div class="settings-title">
-                        Calander
+                        Calander:
                         <div class="settings-content"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-title">
+                        Commanders:
+                        <div class="settings-content">
+                            <select name="select-commander" id="select-commander" class="select-commander">
+                                <option>Select Commander</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
