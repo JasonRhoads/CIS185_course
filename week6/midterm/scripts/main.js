@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Demo widgets
   initWeatherWidget("demo-weather-content");
-  initDayInfoWidget("demo-important-content");
+  initDayInfoWidget("demo-dayInfo-content");
   initHolidayCountdownWidget("demo-calendar-content");
 
   // Settings slide-out menu

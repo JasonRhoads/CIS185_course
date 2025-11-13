@@ -1,11 +1,15 @@
+/* =========================================
+   1. Root variables & base styles
+   ========================================= */
+
 :root {
     --bg-color: #2c2c2c;
     --fav-color: #f0f0f0;
     --font-color: #f0f0f0;
-    --btn-active-color: white;
-    --btn-active-bg: black;
+    --btn-active-color: #ffffff;
+    --btn-active-bg: #000000;
+    --accent-color: #facc15;
 }
-
 
 * {
     box-sizing: border-box;
@@ -13,40 +17,30 @@
     padding: 0;
 }
 
-.hidden {
-  display: none;
-  transition: all 0.5s ease-in-out;
-}
-
-.visible {
-  display: inherit;
-  transition: all 0.5s ease-in-out;
-}
-
 body {
     background-color: var(--bg-color);
-    color : var(--fav-color)
+    color: var(--fav-color);
 }
 
-/* general button properties */
-/* .btn {
-    display: block;
-    height: 40px;
-    width: 150px;
-} */
 
-/* Top navigation */
+/* =========================================
+   2. Top navigation
+   ========================================= */
+
 .main-nav {
     align-items: center;
-    justify-content: space-between;
     background: black;
+    border-bottom: 2px solid var(--accent-color);
     display: flex;
-    height: 50px;
+    font-size: 1.25rem;
+    height: 7svh;
     left: 0;
+    justify-content: space-between;
     padding-inline: 20px;
     position: fixed;
     width: 100svw;
     top: 0;
+    z-index: 1;
 }
 
 .main-nav div {
@@ -55,22 +49,24 @@ body {
     width: 600px;
 }
 
-.main-nav div a ~ a {
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-
+.main-nav a {
+    text-decoration: none;
 }
 
-/* settings side menu */
+/* =========================================
+   3. Settings side menu
+   ========================================= */
+
 .settings-menu {
-  background: black;
-  height: 100vh;
-  left: -1000px;
-  min-width: 75vw;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  transition: all 1s ease-in-out;
-  z-index: 10;
+    background: black;
+    height: 100vh;
+    left: -1000px;
+    min-width: 75vw;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: all 1s ease-in-out;
+    z-index: 10;
 }
 
 .slide-right {
@@ -80,320 +76,45 @@ body {
 }
 
 .settings-item {
-  border: 1px solid var(--fav-color);
+    border: 1px solid var(--fav-color);
+}
+
+.btn-settings,
+.btn-reset, .main-nav a {
+    border: 1px solid var(--accent-color);
+    color: var(--fav-color);
+    background: transparent;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
+                0 0 12px var(--accent-color);
+}
+
+.btn-settings:hover,
+.btn-reset:hover,
+.main-nav a:hover {
+    background: var(--accent-color);
+    color: #000;
+    transition: all 0.5s ease-in-out;
 }
 
 
-/* welcome page */
+/* =========================================
+   4. Welcome / sign-up area
+   ========================================= */
 
 h1 {
-    margin: 70px 0 50px;
+    margin: 100px 0 50px;
     text-align: center;
 }
 
 .new-user-sign-up {
-    align-content: center;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 25px;
 }
-
-/* Demo styles */
-
-.demo-grid-container {
-    border: 1px solid var(--fav-color);
-    border-radius: 10px;
-    display: grid;
-    gap: 20px;
-    grid-template: 'weather important'
-                   'calendar calendar'
-                   'buttons buttons';
-    padding: 20px;
-    width: 45svw;
-}
-
-.demo-widget {
-    border: 1px solid var(--fav-color);
-    border-radius: 10px;
-    height: 100%;
-    padding: 10px;
-    min-height: 200px;
-    width: 100%;
-}
-
-.weather {
-    color: var(--fav-color);
-    grid-area: weather;
-}
-
-/* css from ChatGPT */
-#demo-weather-content {
-  background: #1e1e1e;
-  color: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  max-width: 480px;
-  font-family: system-ui, sans-serif;
-}
-
-.weather-widget {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.weather-header h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
-}
-
-.weather-body {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 0.5rem;
-  align-items: stretch;
-}
-
-.weather-slide {
-  min-height: 120px;
-  padding: 0.25rem 0.5rem;
-}
-
-.weather-slide h4 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-}
-
-.weather-periods {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.weather-period {
-  background: #262626;
-  border-radius: 8px;
-  padding: 0.5rem 0.6rem;
-  font-size: 0.85rem;
-}
-
-.weather-period-name {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.weather-period-main {
-  display: flex;
-  gap: 0.5rem;
-  align-items: baseline;
-  margin-bottom: 0.25rem;
-}
-
-.weather-period-main .temp {
-  font-weight: 700;
-}
-
-.weather-period-main .short {
-  color: #ddd;
-}
-
-.weather-period-detail {
-  color: #bbb;
-  margin-bottom: 0.25rem;
-}
-
-.weather-period-wind {
-  color: #999;
-  font-size: 0.75rem;
-}
-
-.weather-nav {
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.weather-nav:hover {
-  background: #555;
-}
-
-.weather-footer {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: #aaa;
-  margin-top: 0.25rem;
-}
-
-
-.important {
-    grid-area: important;
-}
-
-/* styles from Chatgpt */
-
-#demo-important-content {
-  background: #242424;
-  color: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  line-height: 1.5;
-  font-family: system-ui, sans-serif;
-  max-width: 320px;
-}
-
-#demo-important-content p {
-  margin: 0.25rem 0;
-}
-
-.week-progress {
-  margin-top: 0.6rem;
-  width: 100%;
-  height: 10px;
-  background: #3a3a3a;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.week-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #4ade80, #facc15, #f97316);
-  border-radius: 999px;
-  transition: width 0.4s ease-out;
-}
-
-.week-progress-label {
-  margin-top: 0.3rem;
-  font-size: 0.8rem;
-  color: #ccc;
-}
-
-.calendar {
-    grid-area: calendar;
-}
-
-#demo-calendar-content {
-  background: #1e1e1e;
-  color: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  font-family: system-ui, sans-serif;
-  max-width: 420px;
-}
-
-.holiday-widget h3,
-.holiday-widget h4 {
-  margin: 0 0 0.4rem;
-}
-
-.holiday-next {
-  background: #262626;
-  border-radius: 10px;
-  padding: 0.7rem 0.8rem;
-  margin-bottom: 0.6rem;
-}
-
-.holiday-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.holiday-date {
-  margin: 0.2rem 0;
-  opacity: 0.9;
-}
-
-.holiday-countdown {
-  margin: 0.4rem 0;
-  font-weight: 600;
-  color: #facc15;
-}
-
-.holiday-description {
-  margin: 0.2rem 0 0;
-  font-size: 0.85rem;
-  color: #ccc;
-}
-
-.holiday-list {
-  list-style: none;
-  padding: 0;
-  margin: 0.4rem 0 0;
-  display: grid;
-  gap: 0.3rem;
-}
-
-.holiday-list li {
-  display: grid;
-  grid-template-columns: 2fr 1.3fr 1.1fr;
-  gap: 0.3rem;
-  font-size: 0.85rem;
-  background: #222;
-  padding: 0.4rem 0.5rem;
-  border-radius: 8px;
-}
-
-.holiday-list-name {
-  font-weight: 600;
-}
-
-.holiday-list-date {
-  color: #ddd;
-}
-
-.holiday-list-count {
-  text-align: right;
-  color: #a5b4fc;
-}
-
-
-.button-container {
-    display: grid;
-    grid-area: buttons;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.button-container .btn {
-    height: 40px;
-}
-
-button.active {
-  background: black;
-  color: var(--btn-active-color);
-  outline: 2px solid var(--btn-active-bg);
-  z-index: 1;
-}
-
-.layout-one {
-    grid-template: 'weather important'
-                 'calendar calendar'
-                 'buttons buttons';
-}
-
-.layout-two {
-    grid-template: 'important important'
-                   'calendar weather'
-                   'buttons buttons';
-}
-
-.layout-three {
-    grid-template: 'weather important'
-                   'weather calendar'
-                   'buttons buttons';
-}
-
-/* sign up area */
 
 .sign-up {
     border: 1px solid var(--fav-color);
@@ -405,8 +126,6 @@ button.active {
     margin: 20px 0;
     text-align: center;
 }
-
-
 
 .tagline {
     font-weight: 600;
@@ -430,27 +149,366 @@ button.active {
 }
 
 .btn-command {
-    border: none;
+    background: var(--bg-color);
+    border: 1px solid var(--accent-color);
     border-radius: 50px;
+    color: var(--fav-color);
     height: 50px;
     margin-top: 30px;
     width: 100%;
-
     font-size: 1.5rem;
     transition: all 0.5s ease-in-out;
+}
 
-    &:hover {
-        
-        background: var(--fav-color);
-        border-radius: 0;
-        color: black;
-        cursor: pointer;
-        box-shadow: 0 0 5px   var(--fav-color),
-                    0 0 25px  var(--fav-color),
-                    0 0 50px  var(--fav-color),
-                    0 0 200px var(--fav-color);
-        -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
-    }
+.btn-command:hover {
+    background: var(--accent-color);
+    border-radius: 0;
+    color: var(--bg-color);
+    cursor: pointer;
+    box-shadow: 0 0 5px   var(--accent-color),
+                0 0 25px  var(--accent-color),
+                0 0 50px  var(--accent-color),
+                0 0 200px var(--accent-color);
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+/* =========================================
+   5. Command Center Grid layout & controls
+   ========================================= */
+
+.command-center-shell {
+    border: 1px solid var(--fav-color);
+    border-radius: 10px;
+    display: grid;
+    gap: 20px;
+    grid-template:
+        'weather day-info'
+        'calendar calendar'
+        'buttons buttons';
+    margin: auto;
+    max-width: 90svw;
+    padding: 20px;
+}
+
+.demo {
+    width: 45svw;
+}
+
+/* =========================================
+   Base widget shell
+   ========================================= */
+
+.widget-shell {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 480px;
+
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
+                0 0 12px var(--accent-color);
 }
 
 
+.weather {
+    color: var(--fav-color);
+    grid-area: weather;
+}
+
+.day-info {
+    grid-area: day-info;
+}
+
+.calendar {
+    grid-area: calendar;
+}
+
+.button-container {
+    display: grid;
+    grid-area: buttons;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button-container .btn {
+    height: 40px;
+}
+
+button.active {
+    background: black;
+    color: var(--btn-active-color);
+    outline: 2px solid var(--btn-active-bg);
+    z-index: 1;
+}
+
+/* Grid layout modes */
+
+.layout-one {
+    grid-template:
+        'weather day-info'
+        'calendar calendar'
+        'buttons buttons';
+}
+
+.layout-two {
+    grid-template:
+        'day-info day-info'
+        'calendar weather'
+        'buttons buttons';
+}
+
+.layout-three {
+    grid-template:
+        'weather day-info'
+        'weather calendar'
+        'buttons buttons';
+}
+
+/* =========================================
+   6. Widgets – Weather
+   ========================================= */
+
+.weather-widget-shell {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 480px;
+    font-family: system-ui, sans-serif;
+}
+
+.weather-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.weather-header h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.weather-body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.weather-slide {
+    min-height: 120px;
+    padding: 0.25rem 0.5rem;
+}
+
+.weather-slide h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.weather-periods {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.weather-period {
+    background: #262626;
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.weather-period-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.weather-period-main {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+}
+
+.weather-period-main .temp {
+    font-weight: 700;
+}
+
+.weather-period-main .short {
+    color: #ddd;
+}
+
+.weather-period-detail {
+    color: #bbb;
+    margin-bottom: 0.25rem;
+}
+
+.weather-period-wind {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+.weather-nav {
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-nav:hover {
+    background: #555;
+}
+
+.weather-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-top: 0.25rem;
+}
+
+/* =========================================
+   7. Widgets – Day info / weekend progress
+   ========================================= */
+
+.dayInfo-widget-shell {
+    background: #242424;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-family: system-ui, sans-serif;
+    max-width: 320px;
+}
+
+.dayInfo-widget-shell p {
+    margin: 0.25rem 0;
+}
+
+.week-progress {
+    margin-top: 0.6rem;
+    width: 100%;
+    height: 10px;
+    background: #3a3a3a;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.week-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80, #facc15, #f97316);
+    border-radius: 999px;
+    transition: width 0.4s ease-out;
+}
+
+.week-progress-label {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+/* =========================================
+   8. Widgets – Holiday countdown
+   ========================================= */
+
+.holiday-widget-shell {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: system-ui, sans-serif;
+    max-width: 420px;
+}
+
+.holiday-widget h3,
+.holiday-widget h4 {
+    margin: 0 0 0.4rem;
+}
+
+.holiday-next {
+    background: #262626;
+    border-radius: 10px;
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 0.6rem;
+}
+
+.holiday-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.holiday-date {
+    margin: 0.2rem 0;
+    opacity: 0.9;
+}
+
+.holiday-countdown {
+    margin: 0.4rem 0;
+    font-weight: 600;
+    color: #facc15;
+}
+
+.holiday-description {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+.holiday-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0;
+    display: grid;
+    gap: 0.3rem;
+}
+
+.holiday-list li {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1.1fr;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    background: #222;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+}
+
+.holiday-list-name {
+    font-weight: 600;
+}
+
+.holiday-list-date {
+    color: #ddd;
+}
+
+.holiday-list-count {
+    text-align: right;
+    color: #a5b4fc;
+}
+
+
+
+/* Utilities */
+/* At the bottom to make sure hidden and visible work appropriately */
+
+.hidden {
+    display: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.visible {
+    display: inherit;
+    transition: all 0.5s ease-in-out;
+}

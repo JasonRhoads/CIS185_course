@@ -34,22 +34,27 @@ js/script.js - JavaScript functionality
 What was difficult? How did you solve it? Example: "Making the
 navigation responsive was challenging. I solved it by using CSS
 flexbox and a mobile menu toggle."
+Everytime I would enter a new prompt in ChatGPT it would process it and freeze. 
+I would have to wait for the page to become unresponsive and kill it before reloading. 
 
 ## 7. AI Tools Used
 ChatGPT: 
  - Created a JSON file with a list of common US holidays.
  - Help with button functionality to change the grid layout.
  - Help with weather api call and data display.
+ - Help with current date and count down to weekend with progress bar
+ - Help with holiday countdown list
  - File structure. Main script file was getting too long so broke it down into components
+ - CSS clean up. 
 JavaScript form validation - GitHub Copilot: Helped with CSS grid
 layout suggestions - Claude: Assisted with color palette selection -
 None: Did not use any AI tools [Be honest and specific about AI
 assistance]
 
 ## 8. Future Improvements
-What would you add with more time? - Online ordering system - Customer
-reviews section - Newsletter signup
+Allow users to drag and drop widgets.
+Build out help page with some sort of tutorial
 
 ## 9. Credits
 - Images from [source] - Icons from [source] - Tutorials used: [links]
-- AI assistance as noted in Section 7
+- ChatGPT
