@@ -59,6 +59,35 @@ const showCommandCenter = (commander) => {
 
 document.getElementById("btn-command").addEventListener('click', () => createCommander());
 
+// Grid demo
+const demoGridContainer = document.getElementById("demo");
+
+const demoButtons = document.querySelectorAll(".button-container button");
+
+function changeLayout(layout, btn) {
+  demoGridContainer.classList.remove("layout-one", "layout-two", "layout-three");
+  demoGridContainer.classList.add(layout);
+  
+  demoButtons.forEach(b => b.classList.remove("active"));
+  
+  btn.classList.add("active");
+  console.log(layout);
+}
+  
+let btn1 = document.getElementById("layout1");
+let btn2 = document.getElementById("layout2");
+let btn3 = document.getElementById("layout3");
+
+btn1.addEventListener("click", (e) => changeLayout("layout-one", e.target));
+btn2.addEventListener("click", (e) => changeLayout("layout-two", e.target));
+btn3.addEventListener("click", (e) => changeLayout("layout-three", e.target));
+
+//Demo widgets
+
+// Get Weather for SPSCC
+
+// Get date and type of day - count days till weekend, show Pica cho
+
 // Open and close the settings side menu
 
 //set variables 

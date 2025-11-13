@@ -36,7 +36,9 @@ navigation responsive was challenging. I solved it by using CSS
 flexbox and a mobile menu toggle."
 
 ## 7. AI Tools Used
-ChatGPT: Created a JSON file with a list of common US holidays.
+ChatGPT: 
+ - Created a JSON file with a list of common US holidays.
+ - Help with button functionality to change the grid layout
 JavaScript form validation - GitHub Copilot: Helped with CSS grid
 layout suggestions - Claude: Assisted with color palette selection -
 None: Did not use any AI tools [Be honest and specific about AI

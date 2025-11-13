@@ -1,3 +1,12 @@
+:root {
+    --bg-color: #2c2c2c;
+    --fav-color: #f0f0f0;
+    --font-color: #f0f0f0;
+    --btn-active-color: white;
+    --btn-active-bg: black;
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,11 +23,23 @@
   transition: all 0.5s ease-in-out;
 }
 
+body {
+    background-color: var(--bg-color);
+    color : var(--fav-color)
+}
+
+/* general button properties */
+/* .btn {
+    display: block;
+    height: 40px;
+    width: 150px;
+} */
+
 /* Top navigation */
 .main-nav {
     align-items: center;
     justify-content: space-between;
-    background: blue;
+    background: black;
     display: flex;
     height: 50px;
     left: 0;
@@ -28,9 +49,20 @@
     top: 0;
 }
 
+.main-nav div {
+    display: flex;
+    justify-content: space-evenly;
+    width: 600px;
+}
+
+.main-nav div a ~ a {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+
+}
+
 /* settings side menu */
 .settings-menu {
-  background: pink;
+  background: black;
   height: 100vh;
   left: -1000px;
   min-width: 75vw;
@@ -48,7 +80,7 @@
 }
 
 .settings-item {
-  border: 1px solid black;
+  border: 1px solid var(--fav-color);
 }
 
 
@@ -69,26 +101,28 @@ h1 {
 /* Demo styles */
 
 .demo-grid-container {
-    border: 1px solid black;
+    border: 1px solid var(--fav-color);
     border-radius: 10px;
     display: grid;
     gap: 20px;
     grid-template: 'weather important'
-                   'calander calander';
+                   'calander calander'
+                   'buttons buttons';
     padding: 20px;
     width: 45svw;
 }
 
 .demo-widget {
-    border: 1px solid black;
+    border: 1px solid var(--fav-color);
     border-radius: 10px;
-    background-color: green;
-    height: 200px;
+    height: 100%;
     padding: 10px;
-    max-width: 100%;
+    min-height: 200px;
+    width: 100%;
 }
 
 .weather {
+    color: var(--fav-color);
     grid-area: weather;
 }
 
@@ -100,11 +134,99 @@ h1 {
     grid-area: calander;
 }
 
+.button-container {
+    display: grid;
+    grid-area: buttons;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button-container .btn {
+    height: 40px;
+}
+
+button.active {
+  background: black;
+  color: var(--btn-active-color);
+  outline: 2px solid var(--btn-active-bg);
+  z-index: 1;
+}
+
+.layout-one {
+    grid-template: 'weather important'
+                 'calander calander'
+                 'buttons buttons';
+}
+
+.layout-two {
+    grid-template: 'important important'
+                   'calander weather'
+                   'buttons buttons';
+}
+
+.layout-three {
+    grid-template: 'weather important'
+                   'weather calander'
+                   'buttons buttons';
+}
+
 /* sign up area */
 
 .sign-up {
-    border: 1px solid black;
+    border: 1px solid var(--fav-color);
     border-radius: 10px;
-    background-color: teal;
     padding: 20px;
 }
+
+.sign-up h2 {
+    margin: 20px 0;
+    text-align: center;
+}
+
+
+
+.tagline {
+    font-weight: 600;
+}
+
+.sign-up p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.new-user-info {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.user-input-color {
+    width: 100%;
+}
+
+.btn-command {
+    border: none;
+    border-radius: 50px;
+    height: 50px;
+    margin-top: 30px;
+    width: 100%;
+
+    font-size: 1.5rem;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+        
+        background: var(--fav-color);
+        border-radius: 0;
+        color: black;
+        cursor: pointer;
+        box-shadow: 0 0 5px   var(--fav-color),
+                    0 0 25px  var(--fav-color),
+                    0 0 50px  var(--fav-color),
+                    0 0 200px var(--fav-color);
+        -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    }
+}
+
+

@@ -28,26 +28,39 @@
             </section>
             <section id="new-user-sign-up" class="new-user-sign-up">
                 <div id="demo" class="demo demo-grid-container">
-                    <div id="demo-weather" class="demo-widget medium weather">Weather</div>
-                    <div id="demo-important" class="demo-widget medium important">Important</div>
-                    <div id="demo-calander" class="demo-widget large calander">Calander</div>
+                    <div id="demo-weather" class="demo-widget weather" style="--fav-color: red">Weather</div>
+                    <div id="demo-important" class="demo-widget important">Important</div>
+                    <div id="demo-calander" class="demo-widget calander">Calander</div>
+                    <div class="button-container">
+                        <button id="layout1" class="active btn">Layout 1</button>
+                        <button id="layout2" class="btn">Layout 2</button>
+                        <button id="layout3" class="btn">Layout 3</button>
+                    </div>
                 </div>
                 <div id="sign-up" class="sign-up" >
-                    <h2>Ready to be in Command!</h2>
-                    <p>Your Command Center Your Way!</p>
-                    <fieldset id="new-user-info" class="new-user-info">
-                        <legend>User Information</legend>
-                        <label for="user-first-name">Please enter your first name: </label>
-                        <input type="text" name="user-first-name" id="user-first-name" placeholder="First Name">
-                        <br />
-                        <label for="user-birthday">Please enter your birthday: </label>
-                        <input type="date" name="user-birthday" id="user-birthday" placeholder="Birthday">
-                        <br />
-                        <label for="user-favorite-color">Please choose your favorite color: </label>
-                        <input type="color" name="user-favorite-color" id="user-favorite-color" value="#FF0000">
-                        <br />
+                    <div class="sign-up-container">
+                        <h2>Ready to be in Command!</h2>
+                        <p class="tagline">Your Command Center Your Way!</p>
+                        <p class="command-description">Customize the layout, color, 
+                            and font to fit your command style.<br /> 
+                            Enter the following information to get started</p>
+                        
+                        <fieldset id="new-user-info" class="new-user-info">
+                            <legend>User Information</legend>
+                            <label for="user-first-name">First name: </label>
+                            <input type="text" name="user-first-name" id="user-first-name" 
+                                   placeholder="First Name" class="user-input">
+                            
+                            <label for="user-birthday">Birthday: </label>
+                            <input type="date" name="user-birthday" id="user-birthday" 
+                                   placeholder="Birthday" class="user-input">
+            
+                            <label for="user-favorite-color">Favorite color: </label>
+                            <input type="color" name="user-favorite-color" id="user-favorite-color" 
+                                   value="#FF0000" class="user-input user-input-color">
+                        </fieldset>
                         <button class="btn btn-command" id="btn-command">Take Command Now</button>
-                    </fieldset>
+                    </div>
                 </section>
             </div>
         </main>
