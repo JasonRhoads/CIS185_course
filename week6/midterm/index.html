@@ -28,9 +28,17 @@
             </section>
             <section id="new-user-sign-up" class="new-user-sign-up">
                 <div id="demo" class="demo demo-grid-container">
-                    <div id="demo-weather" class="demo-widget weather" style="--fav-color: red">Weather</div>
-                    <div id="demo-important" class="demo-widget important">Important</div>
-                    <div id="demo-calander" class="demo-widget calander">Calander</div>
+                    <div id="demo-weather" class="demo-widget weather" style="--fav-color: red">
+                        <div id="demo-weather-content"></div>
+                    </div>
+                    <div id="demo-important" class="demo-widget important">
+                        <h4>Important</h4>
+                        <div id="demo-important-content"></div>
+                    </div>
+                    <div id="demo-calendar" class="demo-widget calendar">
+                        <h4>calendar</h4>
+                        <div id="demo-calendar-content"></div>
+                    </div>
                     <div class="button-container">
                         <button id="layout1" class="active btn">Layout 1</button>
                         <button id="layout2" class="btn">Layout 2</button>
@@ -87,7 +95,7 @@
                 </div>
                 <div class="settings-item">
                     <div class="settings-title">
-                        Calander:
+                        calendar:
                         <div class="settings-content"></div>
                     </div>
                 </div>
@@ -105,6 +113,12 @@
         </aside>
         <footer>Jason Rhoads</footer>
 
-        <script type="text/javascript" src="scripts/script.js"></script>
+        <script src="scripts/command-center.js"></script>
+        <script src="scripts/grid-demo.js"></script>
+        <script src="scripts/weather-widget.js"></script>
+        <script src="scripts/day-info-widget.js"></script>
+        <script src="scripts/holiday-countdown-widget.js"></script>
+        <script src="scripts/settings-menu.js"></script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>

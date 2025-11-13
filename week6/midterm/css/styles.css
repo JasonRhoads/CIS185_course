@@ -106,7 +106,7 @@ h1 {
     display: grid;
     gap: 20px;
     grid-template: 'weather important'
-                   'calander calander'
+                   'calendar calendar'
                    'buttons buttons';
     padding: 20px;
     width: 45svw;
@@ -126,13 +126,237 @@ h1 {
     grid-area: weather;
 }
 
+/* css from ChatGPT */
+#demo-weather-content {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 480px;
+  font-family: system-ui, sans-serif;
+}
+
+.weather-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.weather-header h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.weather-body {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.weather-slide {
+  min-height: 120px;
+  padding: 0.25rem 0.5rem;
+}
+
+.weather-slide h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.weather-periods {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.weather-period {
+  background: #262626;
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.weather-period-name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.weather-period-main {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.weather-period-main .temp {
+  font-weight: 700;
+}
+
+.weather-period-main .short {
+  color: #ddd;
+}
+
+.weather-period-detail {
+  color: #bbb;
+  margin-bottom: 0.25rem;
+}
+
+.weather-period-wind {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.weather-nav {
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-nav:hover {
+  background: #555;
+}
+
+.weather-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 0.25rem;
+}
+
+
 .important {
     grid-area: important;
 }
 
-.calander {
-    grid-area: calander;
+/* styles from Chatgpt */
+
+#demo-important-content {
+  background: #242424;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  line-height: 1.5;
+  font-family: system-ui, sans-serif;
+  max-width: 320px;
 }
+
+#demo-important-content p {
+  margin: 0.25rem 0;
+}
+
+.week-progress {
+  margin-top: 0.6rem;
+  width: 100%;
+  height: 10px;
+  background: #3a3a3a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.week-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80, #facc15, #f97316);
+  border-radius: 999px;
+  transition: width 0.4s ease-out;
+}
+
+.week-progress-label {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.calendar {
+    grid-area: calendar;
+}
+
+#demo-calendar-content {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: system-ui, sans-serif;
+  max-width: 420px;
+}
+
+.holiday-widget h3,
+.holiday-widget h4 {
+  margin: 0 0 0.4rem;
+}
+
+.holiday-next {
+  background: #262626;
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.holiday-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.holiday-date {
+  margin: 0.2rem 0;
+  opacity: 0.9;
+}
+
+.holiday-countdown {
+  margin: 0.4rem 0;
+  font-weight: 600;
+  color: #facc15;
+}
+
+.holiday-description {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.holiday-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.holiday-list li {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr 1.1fr;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  background: #222;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+}
+
+.holiday-list-name {
+  font-weight: 600;
+}
+
+.holiday-list-date {
+  color: #ddd;
+}
+
+.holiday-list-count {
+  text-align: right;
+  color: #a5b4fc;
+}
+
 
 .button-container {
     display: grid;
@@ -153,19 +377,19 @@ button.active {
 
 .layout-one {
     grid-template: 'weather important'
-                 'calander calander'
+                 'calendar calendar'
                  'buttons buttons';
 }
 
 .layout-two {
     grid-template: 'important important'
-                   'calander weather'
+                   'calendar weather'
                    'buttons buttons';
 }
 
 .layout-three {
     grid-template: 'weather important'
-                   'weather calander'
+                   'weather calendar'
                    'buttons buttons';
 }
 
