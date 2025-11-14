@@ -116,6 +116,7 @@ function initWeatherWidget(containerId, preferredLocation) {
 
       function renderDay(index) {
         const total = days.length;
+        
         if (total === 0) {
           slideEl.innerHTML = "<p>No forecast available.</p>";
           counterEl.textContent = "";
@@ -128,27 +129,29 @@ function initWeatherWidget(containerId, preferredLocation) {
 
         const day = days[currentIndex];
 
-        const periodsHtml = day.periods.map(p => `
-            <li class="weather-period">
-              <div class="weather-period-name">${p.name}</div>
-              <div class="weather-period-main">
-                <span class="temp">${p.temperature}&deg;${p.temperatureUnit}</span>
-                <span class="short">${p.shortForecast}</span>
-              </div>
-              <div class="weather-period-detail">${p.detailedForecast}</div>
-              <div class="weather-period-wind">Wind: ${p.windSpeed} ${p.windDirection}</div>
-            </li>
-        `).join("");
+        // Use the first period as the main summary (e.g., "Today", "Tonight")
+        const mainPeriod = day.periods[0];
+
+        // Basic raining check (you can tweak the keywords)
+        const raining = /rain|shower|storm|thunder/i.test(mainPeriod.shortForecast);
+        const rainText = raining ? "Rainy" : "No rain";
 
         slideEl.innerHTML = `
           <h4>${day.label}</h4>
-          <ul class="weather-periods">
-            ${periodsHtml}
-          </ul>
+          <div class="weather-main-summary">
+            <div class="weather-main-temp">
+              ${mainPeriod.temperature}&deg;${mainPeriod.temperatureUnit}
+            </div>
+            <div class="weather-main-text">
+              <div class="weather-main-short">${mainPeriod.shortForecast}</div>
+              <div class="weather-main-rain">${rainText}</div>
+            </div>
+          </div>
         `;
 
         counterEl.textContent = `${currentIndex + 1} / ${total}`;
       }
+
 
       prevBtn.addEventListener("click", () => renderDay(currentIndex - 1));
       nextBtn.addEventListener("click", () => renderDay(currentIndex + 1));

@@ -8,7 +8,7 @@
     --font-color: #f0f0f0;
     --btn-active-color: #ffffff;
     --btn-active-bg: #000000;
-    --accent-color: #f0f0f0;
+    --accent-color: #2e2e2e;
 }
 
 * {
@@ -20,8 +20,8 @@
 body {
     background-color: var(--bg-color);
     color: var(--font-color);
+    overflow: hidden; /* no full-page scroll */
 }
-
 
 /* =========================================
    2. Top navigation
@@ -49,7 +49,12 @@ body {
     width: 600px;
 }
 
-.main-nav a {
+.main-nav .nav-links {
+    justify-content: center;
+}
+
+.nav-links a {
+    margin-right: 15px;
     text-decoration: none;
 }
 
@@ -57,16 +62,18 @@ body {
    3. Settings side menu
    ========================================= */
 
+/* Settings menu scrolls internally */
 .settings-menu {
-    background: black;
-    min-height: 100vh;
-    left: -1000px;
-    min-width: 25vw;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    transition: all 1s ease-in-out;
-    z-index: 10;
+  background: black;
+  height: 100vh;
+  left: -1000px;
+  min-width: 25vw;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: all 1s ease-in-out;
+  z-index: 10;
+  overflow-y: auto; /* ✅ scroll here, not the page */
 }
 
 .slide-right {
@@ -204,8 +211,9 @@ h1 {
 }
 
 .new-user-sign-up {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    justify-content: center;
+    display: flex;
     gap: 25px;
 }
 
@@ -238,7 +246,6 @@ h1 {
     grid-template-columns: 1fr 1fr;
     padding: 20px;
     margin: 30px auto;
-    /* max-width: 750px; */
 }
 
 .new-user-info legend {
@@ -253,7 +260,7 @@ h1 {
 .user-input {
     font-size: 1rem;
     height: 50px;
-    padding-left: 10px;
+    padding-inline: 10px;
 }
 
 .user-input-color {
@@ -298,12 +305,17 @@ h1 {
         'weather day-info'
         'calendar calendar'
         'buttons buttons';
-    margin: auto;
-    max-width: 90svw;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr); /* rows share available height */
     padding: 20px;
+    margin: auto;
+    max-height: 700px;
+    max-width: 1100px;
+    width: 65svw; 
 }
 
 .demo {
+    margin: 0;
     width: 45svw;
 }
 
@@ -312,23 +324,22 @@ h1 {
    ========================================= */
 
 .widget-shell {
-    background: #1e1e1e;
-    color: #fff;
-    padding: 1rem;
+    background: var(--bg-color);
     border-radius: 12px;
-    font-family: system-ui, sans-serif;
-    line-height: 1.5;
-    width: 100%;
-    max-width: 480px;
-
     border: 2px solid var(--fav-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
                 0 0 12px var(--fav-color);
+    color: var(--font-color);
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    padding: 1rem;
+    overflow: hidden;          /* hide overflow; inner scroll if needed */
+    width: 100%;
 }
 
 
+
 .weather {
-    color: var(--fav-color);
     grid-area: weather;
 }
 
@@ -388,11 +399,8 @@ h1 {
    ========================================= */
 
 .weather-widget-shell {
-    background: #1e1e1e;
-    color: #fff;
     padding: 1rem;
     border-radius: 12px;
-    max-width: 480px;
     font-family: system-ui, sans-serif;
 }
 
@@ -422,6 +430,33 @@ h1 {
 .weather-slide h4 {
     margin: 0 0 0.5rem;
     font-size: 1rem;
+}
+
+.weather-main-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.weather-main-temp {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.weather-main-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.weather-main-short {
+  font-size: 0.95rem;
+}
+
+.weather-main-rain {
+  font-size: 0.85rem;
+  opacity: 0.8;
 }
 
 .weather-periods {
@@ -500,13 +535,10 @@ h1 {
    ========================================= */
 
 .dayInfo-widget-shell {
-    background: #242424;
-    color: #fff;
     padding: 1rem;
     border-radius: 12px;
     line-height: 1.5;
     font-family: system-ui, sans-serif;
-    max-width: 320px;
 }
 
 .dayInfo-widget-shell p {
@@ -540,12 +572,9 @@ h1 {
    ========================================= */
 
 .holiday-widget-shell {
-    background: #1e1e1e;
-    color: #fff;
     padding: 1rem;
     border-radius: 12px;
     font-family: system-ui, sans-serif;
-    max-width: 420px;
 }
 
 .holiday-widget h3,
@@ -554,7 +583,7 @@ h1 {
 }
 
 .holiday-next {
-    background: #262626;
+    background: color-mix(in srgb, var(--accent-color) 50%, rgb(90, 90, 90));
     border-radius: 10px;
     padding: 0.7rem 0.8rem;
     margin-bottom: 0.6rem;
@@ -585,18 +614,56 @@ h1 {
 
 .holiday-list {
     list-style: none;
-    padding: 0;
-    margin: 0.4rem 0 0;
     display: grid;
     gap: 0.3rem;
+    margin: 0.4rem 0 0;
+    max-height: 100px;
+    overflow-y: auto;
+    padding: 0 5px 0 0;
+}
+
+/* Width of scrollbar */
+.holiday-list::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track (background of the scrollbar) */
+.holiday-list::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+/* Scroll thumb (the draggable part) */
+.holiday-list::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  animation: pulse 3s infinite ease-in-out;
+  background: var(--accent-color);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.3); /* gives nice “rounded pill” look */
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 4px var(--accent-color); }
+  50%  { box-shadow: 0 0 10px var(--accent-color); }
+  100% { box-shadow: 0 0 4px var(--accent-color); }
+}
+
+/* Hover effect */
+.holiday-list::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--accent-color) 80%, white);
+}
+
+/* Firefox support */
+.holiday-list, body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) rgba(255,255,255,0.08);
 }
 
 .holiday-list li {
+    background: color-mix(in srgb, var(--accent-color) 50%, rgb(90, 90, 90));
     display: grid;
     grid-template-columns: 2fr 1.3fr 1.1fr;
     gap: 0.3rem;
     font-size: 0.85rem;
-    background: #222;
     padding: 0.4rem 0.5rem;
     border-radius: 8px;
 }
@@ -614,6 +681,115 @@ h1 {
     color: #a5b4fc;
 }
 
+.holiday-item-hidden {
+  display: none;
+}
+
+.holiday-list.show-all .holiday-item-hidden {
+  display: grid; /* same as normal .holiday-list li */
+}
+
+.holiday-toggle-btn {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--fav-color);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.holiday-toggle-btn:hover {
+  background: var(--accent-color);
+  color: #000;
+}
+
+
+/* =========================================
+   9. Footer
+   ========================================= */
+
+footer {
+    margin-top: 25px;
+    opacity: 0.5;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+}
+
+footer:hover {
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+
+/* =========================================
+   10. Media Queries 
+   ========================================= */
+
+
+/* 
+    Change the grid template layout for the smaller screens
+*/
+@media only screen and (max-width: 600px) {
+    .command-center-shell {
+        grid-template: "weather"
+                       "day-info"
+                       "calendar"
+                       "buttons";
+    }
+
+    .layout-one {
+        grid-template: "weather"
+                       "day-info"
+                       "calendar"
+                       "buttons";
+    }
+
+    .layout-two {
+        grid-template: "day-info"
+                       "calendar"
+                       "weather"
+                       "buttons";
+    }
+
+    .layout-three {
+        grid-template: "calendar"
+                       "weather"
+                       "day-info"
+                       "buttons";
+    }
+}
+
+
+   /* thanks to grid and flex the settings work from phone 360px range to 1110px */
+   /* goes down to 1 column and allows for scroll */
+   /* range from Extra small devices to tablets (phones, 1110px and down) */
+@media only screen and (max-width: 1110px) {
+    body {
+        overflow: auto;
+    }
+    
+    .new-user-sign-up {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .command-center-shell, .sign-up {
+        height: 700px;
+        width: 90svw;
+    }
+
+    .new-user-info {
+        display: block;
+        margin-bottom: -10px;
+    }
+
+    .user-input {
+        width: 100%;
+    }
+
+}
 
 
 /* Utilities */

@@ -146,29 +146,57 @@ async function initHolidayCountdownWidget(containerId, extraEvents = []) {
         </div>
     `;
 
+    // Show only a few coming up initially
+    const limit = 3;
+
     if (following.length > 0) {
       html += `<h4>Coming Up</h4><ul class="holiday-list">`;
-      html += following.map(item => {
+
+      following.forEach((item, index) => {
         const d = item.date.toLocaleDateString(undefined, {
           month: "short",
           day: "numeric",
           year: "numeric"
         });
         const daysAway = Math.ceil(item.deltaMs / msPerDay);
-        return `
-          <li>
+
+        const extraClass = index >= limit ? " holiday-item-hidden" : "";
+        html += `
+          <li class="holiday-item${extraClass}">
             <span class="holiday-list-name">${item.holiday.name}</span>
             <span class="holiday-list-date">${d}</span>
             <span class="holiday-list-count">${daysAway} day${daysAway === 1 ? "" : "s"}</span>
           </li>
         `;
-      }).join("");
+      });
+
       html += `</ul>`;
+
+      //button to show more, but was not working so will remove for now
+      // if (following.length > limit) {
+      //   html += `
+      //     <button type="button" class="holiday-toggle-btn">
+      //       Show full list
+      //     </button>
+      //   `;
+      // }
     }
 
-    html += `</div>`;
+    html += `</div>`; // .holiday-widget
 
     container.innerHTML = html;
+
+    // Wire toggle if needed
+    const toggleBtn = container.querySelector(".holiday-toggle-btn");
+    const listEl    = container.querySelector(".holiday-list");
+
+    if (toggleBtn && listEl) {
+      toggleBtn.addEventListener("click", () => {
+        const isExpanded = listEl.classList.toggle("show-all");
+        toggleBtn.textContent = isExpanded ? "Show fewer" : "Show full list";
+      });
+}
+
   } catch (err) {
     console.error(err);
     container.textContent = "Could not load holiday countdown.";
