@@ -89,7 +89,7 @@ function formatCountdown(deltaMs) {
   return { days, hours, mins };
 }
 
-async function initHolidayCountdownWidget(containerId) {
+async function initHolidayCountdownWidget(containerId, extraEvents = []) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -97,7 +97,11 @@ async function initHolidayCountdownWidget(containerId) {
     const res = await fetch(HOLIDAY_JSON_URL);
     if (!res.ok) throw new Error("Failed to load holidays JSON");
     const data = await res.json();
-    const holidays = data.holidays || [];
+
+    const holidays = (data.holidays || []).slice();
+
+    // Add commander-specific extra events (birthday + custom)
+    extraEvents.forEach(ev => holidays.push(ev));
 
     const now = new Date();
 
@@ -107,6 +111,7 @@ async function initHolidayCountdownWidget(containerId) {
       return { holiday: h, date: nextDate, deltaMs };
     }).filter(item => item.deltaMs > 0)
       .sort((a, b) => a.date - b.date);
+
 
     if (upcoming.length === 0) {
       container.textContent = "No upcoming holidays found.";

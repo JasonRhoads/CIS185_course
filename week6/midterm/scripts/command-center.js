@@ -11,14 +11,17 @@ const STORAGE_KEYS = {
 
 function applyCommanderTheme(commander) {
   const root = document.documentElement;
-  if (!commander || !commander.favoriteColor) {
-    // fallback to default
-    root.style.setProperty("--fav-color", "#facc15");
-    return;
-  }
+  const theme = commander.theme || {};
 
-  root.style.setProperty("--fav-color", commander.favoriteColor);
+  // Basic defaults
+  const defaultAccent = commander.favoriteColor || "#facc15";
+
+  root.style.setProperty("--bg-color", theme.bgColor || "#2c2c2c");
+  root.style.setProperty("--font-color", theme.fontColor || "#f0f0f0");
+  root.style.setProperty("--fav-color", theme.favColor || "#f0f0f0");
+  root.style.setProperty("--accent-color", theme.accentColor || defaultAccent);
 }
+
 
 
 // ---------- LocalStorage helpers ----------
@@ -130,8 +133,17 @@ function createCommander() {
   commanders[userFirstName] = {
     name:          userFirstName,
     birthdate:     userBirthday,
-    favoriteColor: userFavoriteColor
-  };
+    favoriteColor: userFavoriteColor,
+    theme: {
+      // seed the theme with their favorite color
+      accentColor: userFavoriteColor,
+      favColor:    userFavoriteColor
+    },             // for colors
+    layout:        "layout-one",   // default
+    weatherLocation: null,         // { lat, lon } later
+    specialDates:  []              // extra calendar events
+};
+
 
   console.log("Commanders:", commanders);
 
@@ -169,9 +181,11 @@ function showCommandCenter(commanderName) {
   applyCommanderTheme(commander);
 
   // Initialize user widgets for THIS command center
-  initWeatherWidget("weather-content");
+  initWeatherWidget("weather-content", commander.weatherLocation || undefined);
   initDayInfoWidget("dayInfo-content");
-  initHolidayCountdownWidget("calendar-content");
+  
+  const extras = buildCommanderExtraEvents(commander);
+  initHolidayCountdownWidget("calendar-content", extras);
 
   // Update settings dropdown
   populateCommanderDropdown(commanderName);
@@ -241,4 +255,45 @@ function resetKiC() {
   document.getElementById("user-favorite-color").setAttribute("value", "#facc15");
 
   console.log("Kids in Command has been reset.");
+}
+
+// Add extra events and commanders birthday
+function buildCommanderExtraEvents(commander) {
+  const extras = [];
+
+  // Birthday as yearly event
+  if (commander.birthdate) {
+    const [year, m, d] = commander.birthdate.split("-");
+    const month = parseInt(m, 10);
+    const day   = parseInt(d, 10);
+    if (!isNaN(month) && !isNaN(day)) {
+      extras.push({
+        name: `${commander.name}'s Birthday`,
+        month,
+        day,
+        description: `Celebrate ${commander.name}'s birthday!`,
+        movable: false
+      });
+    }
+  }
+
+  // User-added special dates
+  if (Array.isArray(commander.specialDates)) {
+    commander.specialDates.forEach(ev => {
+      const [year, m, d] = (ev.date || "").split("-");
+      const month = parseInt(m, 10);
+      const day   = parseInt(d, 10);
+      if (!isNaN(month) && !isNaN(day)) {
+        extras.push({
+          name: ev.name,
+          month,
+          day,
+          description: ev.description || "",
+          movable: false
+        });
+      }
+    });
+  }
+
+  return extras;
 }

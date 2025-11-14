@@ -1,16 +1,27 @@
-async function getDailyForecast() {
+async function getDailyForecast(preferredLocation) {
   let lat = 47.0379, lon = -122.9007; // Olympia fallback
-  try {
-    const pos = await new Promise((res, rej) =>
-      navigator.geolocation.getCurrentPosition(res, rej, {
-        enableHighAccuracy: true,
-        timeout: 8000
-      })
-    );
-    lat = pos.coords.latitude;
-    lon = pos.coords.longitude;
-  } catch (e) {
-    console.warn("Geolocation denied, using fallback.");
+  
+  //check to see if there is a preffered location entered
+  if (
+    preferredLocation &&
+    Number.isFinite(preferredLocation.lat) &&
+    Number.isFinite(preferredLocation.lon)
+  ) {
+    lat = preferredLocation.lat;
+    lon = preferredLocation.lon;
+  } else {
+    try {
+      const pos = await new Promise((res, rej) =>
+        navigator.geolocation.getCurrentPosition(res, rej, {
+          enableHighAccuracy: true,
+          timeout: 8000
+        })
+      );
+      lat = pos.coords.latitude;
+      lon = pos.coords.longitude;
+    } catch (e) {
+      console.warn("Geolocation denied, using fallback.");
+    }
   }
 
   const pointsResp = await fetch(`https://api.weather.gov/points/${lat},${lon}`);
@@ -72,8 +83,8 @@ async function getDailyForecast() {
 }
 
 // Public init: pass container id
-function initWeatherWidget(containerId) {
-  getDailyForecast()
+function initWeatherWidget(containerId, preferredLocation) {
+  getDailyForecast(preferredLocation)
     .then(data => {
       const container = document.getElementById(containerId);
       if (!container) return;

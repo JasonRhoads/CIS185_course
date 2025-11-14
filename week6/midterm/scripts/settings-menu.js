@@ -83,6 +83,150 @@ function initSettingsMenu() {
 
   // 🔽 Initialize accordion behavior
   initSettingsAccordion();
+
+  initSettingsControls();
 }
+
+
+// Check settings menu for customization
+function initSettingsControls() {
+  // ---- Layout controls ----
+  const layoutRadios = document.querySelectorAll('input[name="layout-choice"]');
+  layoutRadios.forEach(radio => {
+    radio.addEventListener("change", (e) => {
+      const layout = e.target.value;
+
+      const commandCenterShell = document.getElementById("command-center-shell");
+      if (commandCenterShell) {
+        commandCenterShell.classList.remove("layout-one", "layout-two", "layout-three");
+        commandCenterShell.classList.add(layout);
+      }
+
+      const cc = document.querySelector(".command-center");
+      if (cc) {
+        cc.classList.remove("layout-one", "layout-two", "layout-three");
+        cc.classList.add(layout);
+      }
+
+      if (typeof getActiveCommanderName === "function" && typeof saveCommandersToStorage === "function") {
+        const activeName = getActiveCommanderName();
+        if (activeName && commanders[activeName]) {
+          commanders[activeName].layout = layout;
+          saveCommandersToStorage();
+        }
+      }
+    });
+  });
+
+  // ---- Color controls ----
+  const colorInputsConfig = [
+    { id: "color-bg",     varName: "--bg-color",     key: "bgColor" },
+    { id: "color-font",   varName: "--font-color",   key: "fontColor" },
+    { id: "color-fav",    varName: "--fav-color",    key: "favColor" },
+    { id: "color-accent", varName: "--accent-color", key: "accentColor" }
+  ];
+
+  colorInputsConfig.forEach(cfg => {
+    const input = document.getElementById(cfg.id);
+    if (!input) return;
+
+    input.addEventListener("input", (e) => {
+      const value = e.target.value;
+      document.documentElement.style.setProperty(cfg.varName, value);
+
+      if (typeof getActiveCommanderName === "function" && typeof saveCommandersToStorage === "function") {
+        const activeName = getActiveCommanderName();
+        if (activeName && commanders[activeName]) {
+          const commander = commanders[activeName];
+          commander.theme = commander.theme || {};
+          commander.theme[cfg.key] = value;
+          saveCommandersToStorage();
+        }
+      }
+    });
+  });
+
+  // ---- Weather controls ----
+  const latInput = document.getElementById("weather-lat");
+  const lonInput = document.getElementById("weather-lon");
+  const weatherSaveBtn = document.getElementById("weather-save");
+
+  if (weatherSaveBtn) {
+    weatherSaveBtn.addEventListener("click", () => {
+      if (typeof getActiveCommanderName !== "function" || typeof saveCommandersToStorage !== "function") return;
+
+      const activeName = getActiveCommanderName();
+      if (!activeName || !commanders[activeName]) return;
+      const commander = commanders[activeName];
+
+      const lat = parseFloat(latInput.value);
+      const lon = parseFloat(lonInput.value);
+
+      if (!isNaN(lat) && !isNaN(lon)) {
+        commander.weatherLocation = { lat, lon };
+      } else {
+        commander.weatherLocation = null;
+      }
+
+      saveCommandersToStorage();
+
+      // Re-init weather widget in command center
+      initWeatherWidget("weather-content", commander.weatherLocation || undefined);
+    });
+  }
+
+  // ---- Calendar controls ----
+  const eventNameInput = document.getElementById("calendar-event-name");
+  const eventDateInput = document.getElementById("calendar-event-date");
+  const addEventBtn    = document.getElementById("calendar-add-event");
+  const eventList      = document.getElementById("calendar-event-list");
+
+  function renderCommanderEvents(commander) {
+    if (!eventList) return;
+    eventList.innerHTML = "";
+    const events = commander.specialDates || [];
+    events.forEach(ev => {
+      const li = document.createElement("li");
+      li.textContent = `${ev.name} – ${ev.date}`;
+      eventList.appendChild(li);
+    });
+  }
+
+  if (addEventBtn) {
+    addEventBtn.addEventListener("click", () => {
+      if (typeof getActiveCommanderName !== "function" || typeof saveCommandersToStorage !== "function") return;
+
+      const name = eventNameInput.value.trim();
+      const date = eventDateInput.value;
+
+      if (!name || !date) {
+        alert("Please enter an event name and date.");
+        return;
+      }
+
+      const activeName = getActiveCommanderName();
+      if (!activeName || !commanders[activeName]) return;
+      const commander = commanders[activeName];
+
+      if (!Array.isArray(commander.specialDates)) {
+        commander.specialDates = [];
+      }
+      commander.specialDates.push({ name, date });
+
+      saveCommandersToStorage();
+      renderCommanderEvents(commander);
+
+      const extras = buildCommanderExtraEvents(commander);
+      initHolidayCountdownWidget("calendar-content", extras);
+
+      eventNameInput.value = "";
+      eventDateInput.value = "";
+    });
+  }
+
+  // Optional: when settings open, you could call renderCommanderEvents(...)
+  // using the current active commander to pre-populate the list if you like.
+}
+
 
 
