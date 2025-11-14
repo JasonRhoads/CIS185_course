@@ -1,3 +1,32 @@
+
+function initSettingsAccordion() {
+  const items = document.querySelectorAll(".settings-item");
+
+  items.forEach(item => {
+    const titleBtn = item.querySelector(".settings-title");
+    const content = item.querySelector(".settings-content");
+
+    if (!titleBtn || !content) return;
+
+    // Ensure content starts collapsed
+    content.style.maxHeight = "0px";
+
+    titleBtn.addEventListener("click", () => {
+      const isOpen = item.classList.toggle("open");
+
+      if (isOpen) {
+        // Expand to content's scrollHeight
+        content.style.maxHeight = (content.scrollHeight + 20) + "px";
+      } else {
+        // Collapse
+        content.style.maxHeight = "0px";
+      }
+    });
+  });
+}
+
+
+
 function initSettingsMenu() {
   const settingsMenu = document.getElementById("settings-menu");
   const settingsBtn  = document.getElementById("settings-menu-btn");
@@ -51,4 +80,9 @@ function initSettingsMenu() {
       closeMenu();
     });
   }
+
+  // 🔽 Initialize accordion behavior
+  initSettingsAccordion();
 }
+
+

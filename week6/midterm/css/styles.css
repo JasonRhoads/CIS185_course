@@ -4,11 +4,11 @@
 
 :root {
     --bg-color: #2c2c2c;
-    --fav-color: #f0f0f0;
+    --fav-color: #facc15;
     --font-color: #f0f0f0;
     --btn-active-color: #ffffff;
     --btn-active-bg: #000000;
-    --accent-color: #facc15;
+    --accent-color: #f0f0f0;
 }
 
 * {
@@ -19,7 +19,7 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--fav-color);
+    color: var(--font-color);
 }
 
 
@@ -30,7 +30,7 @@ body {
 .main-nav {
     align-items: center;
     background: black;
-    border-bottom: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--fav-color);
     display: flex;
     font-size: 1.25rem;
     height: 7svh;
@@ -59,9 +59,9 @@ body {
 
 .settings-menu {
     background: black;
-    height: 100vh;
+    min-height: 100vh;
     left: -1000px;
-    min-width: 75vw;
+    min-width: 25vw;
     opacity: 0;
     position: absolute;
     top: 0;
@@ -81,7 +81,7 @@ body {
 
 .btn-settings,
 .btn-reset, .main-nav a {
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--fav-color);
     color: var(--fav-color);
     background: transparent;
     padding: 0.25rem 0.75rem;
@@ -89,15 +89,108 @@ body {
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
-                0 0 12px var(--accent-color);
+                0 0 12px var(--fav-color);
 }
 
 .btn-settings:hover,
 .btn-reset:hover,
 .main-nav a:hover {
-    background: var(--accent-color);
+    background: var(--fav-color);
     color: #000;
     transition: all 0.5s ease-in-out;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+}
+
+.settings-item {
+  border: 1px solid var(--fav-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header row with label + chevron */
+.settings-title {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--fav-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.settings-title:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.settings-chevron {
+  transition: transform 0.25s ease;
+}
+
+/* Rotate chevron when open */
+.settings-item.open .settings-chevron {
+  transform: rotate(180deg);
+}
+
+/* Collapsible content */
+.settings-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 0.75rem;
+  transition: max-height 0.25s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
+}
+
+.settings-item.open .settings-content {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  max-height: 500px;
+}
+
+/* Layout options, color pickers, etc. */
+
+.layout-options,
+.color-options,
+.weather-options,
+.calendar-options {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.layout-options label,
+.color-options label,
+.weather-options label,
+.calendar-options label {
+  font-size: 0.85rem;
+}
+
+.color-options input {
+    width: 90px;
+}
+
+.settings-hint {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 0.4rem;
+}
+
+.calendar-event-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+}
+
+.calendar-event-list li {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
@@ -119,15 +212,17 @@ h1 {
 .sign-up {
     border: 1px solid var(--fav-color);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .sign-up h2 {
+    font-size: 1.75rem;
     margin: 20px 0;
     text-align: center;
 }
 
 .tagline {
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
@@ -137,20 +232,38 @@ h1 {
 }
 
 .new-user-info {
+    border-color: var(--fav-color);
     display: grid;
     gap: 5px;
     grid-template-columns: 1fr 1fr;
     padding: 20px;
-    margin-top: 30px;
+    margin: 30px auto;
+    /* max-width: 750px; */
+}
+
+.new-user-info legend {
+    font-size: 1.25rem;
+}
+
+.new-user-info label {
+    align-content: center;
+    font-size: 1.25rem;
+}
+
+.user-input {
+    font-size: 1rem;
+    height: 50px;
+    padding-left: 10px;
 }
 
 .user-input-color {
+    padding-inline: 2.5px;
     width: 100%;
 }
 
 .btn-command {
     background: var(--bg-color);
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--fav-color);
     border-radius: 50px;
     color: var(--fav-color);
     height: 50px;
@@ -161,14 +274,14 @@ h1 {
 }
 
 .btn-command:hover {
-    background: var(--accent-color);
+    background: var(--fav-color);
     border-radius: 0;
     color: var(--bg-color);
     cursor: pointer;
-    box-shadow: 0 0 5px   var(--accent-color),
-                0 0 25px  var(--accent-color),
-                0 0 50px  var(--accent-color),
-                0 0 200px var(--accent-color);
+    box-shadow: 0 0 5px   var(--fav-color),
+                0 0 25px  var(--fav-color),
+                0 0 50px  var(--fav-color),
+                0 0 200px var(--fav-color);
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
 
@@ -208,9 +321,9 @@ h1 {
     width: 100%;
     max-width: 480px;
 
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--fav-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
-                0 0 12px var(--accent-color);
+                0 0 12px var(--fav-color);
 }
 
 
@@ -234,13 +347,16 @@ h1 {
 }
 
 .button-container .btn {
+    background: var(--fav-color);
+    border: 1px solid var(--bg-color);
+    color: var(--bg-color);
     height: 40px;
 }
 
-button.active {
-    background: black;
+.button-container button.active {
+    background-color: var(--btn-active-bg);
     color: var(--btn-active-color);
-    outline: 2px solid var(--btn-active-bg);
+    outline: 3px solid var(--btn-active-bg);
     z-index: 1;
 }
 

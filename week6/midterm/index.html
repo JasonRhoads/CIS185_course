@@ -46,7 +46,7 @@
                     <div class="sign-up-container">
                         <h2>Ready to be in Command!</h2>
                         <p class="tagline">Your Command Center Your Way!</p>
-                        <p class="command-description">Customize the layout, color, 
+                        <p class="command-description">Customize the layout, colors, 
                             and holidays to fit your command style.</p>
                         <p>Enter the following information to get started</p>
                         
@@ -70,59 +70,122 @@
             </section>
         </main>
         <aside id="settings-menu" class="settings-menu hidden">
-            <div>Settings <span id="menu-close">X</span></div>
             <div class="settings-container">
                 <div class="settings-item">
-                    <div class="settings-title">
-                        Layout:
-                        <div class="settings-content"></div>
-                    </div>
+                    <button type="button" class="settings-title" id="menu-close">
+                        <span class="settings-label">Settings</span>
+                        <span>X</span>
+                    </button>
                 </div>
+            </div> 
 
+            <div class="settings-container">
                 <div class="settings-item">
-                    <div class="settings-title">
-                        Colors:
-                        <div class="settings-content"></div>
-                    </div>
-                </div>
-
-                <div class="settings-item">
-                    <div class="settings-title">
-                        Weather:
-                        <div class="settings-content"></div>
-                    </div>
-                </div>
-
-                <div class="settings-item">
-                    <div class="settings-title">
-                        Calendar:
-                        <div class="settings-content"></div>
-                    </div>
-                </div>
-
-                <div class="settings-item">
-                    <div class="settings-title">
-                        Commanders:
-                        <div class="settings-content">
-                            <select name="select-commander" id="select-commander" class="select-commander">
-                                <option>Select Commander</option>
-                            </select>
+                    <button type="button" class="settings-title">
+                        <span class="settings-label">Layout</span>
+                        <span class="settings-chevron">&#9662;</span>
+                    </button>
+                    <div class="settings-content">
+                        <div class="layout-options">
+                            <label for="layout-one">
+                                <input type="radio" name="layout-choice" value="layout-one" id="layout-one" checked>
+                                Layout 1
+                            </label>
+                            <label for="layout-two">
+                                <input type="radio" name="layout-choice" value="layout-two" id="layout-two">
+                                Layout 2
+                            </label>
+                            <label for="layout-three">
+                                <input type="radio" name="layout-choice" value="layout-three" id="layout-three">
+                                Layout 3
+                            </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="settings-item">
-                    <div class="settings-title">
-                        System:
-                        <div class="settings-content">
-                            <button id="btn-reset-kic" class="btn btn-reset">
-                                Reset Kids in Command
-                            </button>
+                    <button type="button" class="settings-title">
+                        <span class="settings-label">Colors</span>
+                        <span class="settings-chevron">&#9662;</span>
+                    </button>
+                    <div class="settings-content">
+                        <div class="color-options">
+                            <label>Favorite color: </label>
+                            <input type="color" id="color-fav" value="#facc15">
+                            <label>Background: </label>
+                            <input type="color" id="color-bg" value="#2c2c2c">
+                            <label>Font color: </label>
+                            <input type="color" id="color-font" value="#f0f0f0">
+                            <label>Accent color: </label>
+                            <input type="color" id="color-accent" value="#f0f0f0">
                         </div>
+                        <p class="settings-hint">These change your command center colors.</p>
                     </div>
                 </div>
+
+                <div class="settings-item">
+                <button type="button" class="settings-title">
+                    <span class="settings-label">Weather</span>
+                    <span class="settings-chevron">&#9662;</span>
+                </button>
+                <div class="settings-content">
+                    <div class="weather-options">
+                        <label>Latitude:</label>
+                        <input type="number" step="0.0001" id="weather-lat">
+                        <label>Longitude: </label>
+                        <input type="number" step="0.0001" id="weather-lon">
+                        <button type="button" id="weather-save" class="btn">Use this location</button>
+                        <p class="settings-hint">Leave blank to use your device's location.</p>
+                        </div>
+                </div>
+                </div>
+
+                <div class="settings-item">
+                <button type="button" class="settings-title">
+                    <span class="settings-label">Calendar</span>
+                    <span class="settings-chevron">&#9662;</span>
+                </button>
+                <div class="settings-content">
+                    <div class="calendar-options">
+                        <p class="settings-hint">Your birthday is automatically included.</p>
+                        <label>Event name</label>
+                        <input type="text" id="calendar-event-name" placeholder="e.g. Family Trip">
+                        <label>Date</label>
+                        <input type="date" id="calendar-event-date">
+                        <button type="button" id="calendar-add-event" class="btn">Add Event</button>
+
+                        <ul id="calendar-event-list" class="calendar-event-list"></ul>
+                        </div>
+                </div>
+                </div>
+
+                <div class="settings-item">
+                <button type="button" class="settings-title">
+                    <span class="settings-label">Commanders</span>
+                    <span class="settings-chevron">&#9662;</span>
+                </button>
+                <div class="settings-content">
+                    <select name="select-commander" id="select-commander" class="select-commander">
+                    <option>Select Commander</option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="settings-item">
+                <button type="button" class="settings-title">
+                    <span class="settings-label">System</span>
+                    <span class="settings-chevron">&#9662;</span>
+                </button>
+                <div class="settings-content">
+                    <button id="btn-reset-kic" class="btn btn-reset">
+                    Reset Kids in Command
+                    </button>
+                </div>
+                </div>
+
             </div>
-        </aside>
+            </aside>
+
         <footer>Jason Rhoads</footer>
 
         <script src="scripts/command-center.js"></script>

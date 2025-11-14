@@ -13,11 +13,11 @@ function applyCommanderTheme(commander) {
   const root = document.documentElement;
   if (!commander || !commander.favoriteColor) {
     // fallback to default
-    root.style.setProperty("--accent-color", "#facc15");
+    root.style.setProperty("--fav-color", "#facc15");
     return;
   }
 
-  root.style.setProperty("--accent-color", commander.favoriteColor);
+  root.style.setProperty("--fav-color", commander.favoriteColor);
 }
 
 
@@ -237,7 +237,8 @@ function resetKiC() {
 
   // 🔄 Reset theme to default
   const root = document.documentElement;
-  root.style.setProperty("--accent-color", "#facc15");
+  root.style.setProperty("--fav-color", "#facc15");
+  document.getElementById("user-favorite-color").setAttribute("value", "#facc15");
 
   console.log("Kids in Command has been reset.");
 }
