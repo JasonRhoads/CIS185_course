@@ -37,6 +37,7 @@ to see the weather of when something is coming up
 - command-center.js - the command center that houses the widgets after user sign up
 - us-holidays.json - JSON file that contains the most commong US holidays
 - script.js - original script file before components were seperated into files, not currently in use
+- images/ - contains wire frames for the project
 
 ## 6. Challenges Faced
 This was the most AI I have used in a project. After getting a response, I would implement the code
@@ -62,9 +63,12 @@ ChatGPT:
 ## 8. Future Improvements
 - Allow users to drag and drop widgets.
 - Build out help page with some sort of tutorial.
+- Allow users to enter in ZIP codes instead of coordinates  
 - Create presets for other users to see what I prefer and what my kids prefer
 
 ## 9. Credits
+- [weather.gov](https://api.weather.gov/) The weather api I used 
 - [w3schools](https://www.w3schools.com/cssref/pr_grid-template-areas.php) Learning about grid layouts
 - [Codepen](https://codepen.io/jasonrhoads1/pen/VYeGGQJ) I was messing around with changing layouts
+- [Lucid Chart](https://lucid.app/) used to create wire frames
 - ChatGPT: The rest of my usage was with ChatGPT
