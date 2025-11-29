@@ -1,35 +1,97 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { useState } from "react";
+import { useTaskStorage } from "./hooks/useTaskStorage";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import TaskCount from "./components/TaskCount";
+import TaskInput from "./components/TaskInput";
+import TaskList from "./components/TaskList";
+import FilterButtons from "./components/FilterButtons";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // tasks will be an array of { id, text, completed, createdAt }
+  const [tasks, setTasks] = useTaskStorage();
+  const [filter, setFilter] = useState("all");
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  function handleAddTask(text) {
+    const newTask = {
+      id: Date.now(),        // simple unique-ish id
+      text: text,
+      completed: false,
+      createdAt: new Date(),
+    };
+
+    // add the new task to the beginning of the list
+    setTasks((prevTasks) => [newTask, ...prevTasks]);
+  }
+
+  function handleToggleTask(id) {
+  setTasks(prevTasks =>
+    prevTasks.map(task =>
+      task.id === id
+        ? { ...task, completed: !task.completed }
+        : task
+    )
+  );
 }
 
-export default App
+
+  function handleDeleteTask(id) {
+  setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+}
+
+
+  // Filtering Logic
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") {
+      return !task.completed;
+    }
+    if (filter === "completed") {
+      return task.completed;
+    }
+    return true; // "all"
+  });
+
+  // Task Counts
+  const activeCount = tasks.filter((task) => !task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
+  const totalCount = tasks.length;
+
+
+  return (
+    <div className="app">
+      <Header />
+
+      <main className="app-main">
+        <section className="task-panel">
+          <TaskInput onAddTask={handleAddTask} />
+
+          <FilterButtons
+            currentFilter={filter}
+            onChangeFilter={setFilter}
+          />
+          
+          <TaskCount
+            filter={filter}
+            activeCount={activeCount}
+            completedCount={completedCount}
+            totalCount={totalCount}
+          />
+
+          <div className="task-lists-container">
+            <TaskList
+              tasks={filteredTasks}
+              onToggleTask={handleToggleTask}
+              onDeleteTask={handleDeleteTask}
+            />
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default App;

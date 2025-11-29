@@ -1,42 +1,107 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* src/App.css */
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #f5f5f5;
+}
+
+.app-main,
+.app-footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.app-header {
+  padding: 1.5rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-footer {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.task-panel {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Input row */
+.task-input {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.card {
-  padding: 2em;
+.task-input input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
 }
 
-.read-the-docs {
-  color: #888;
+.task-input button {
+  padding: 0.5rem 0.9rem;
+}
+
+/* Filter buttons row */
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* The "grid" that can host multiple lists */
+.task-lists-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+/* Task list + items */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-text.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.delete-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.empty-list {
+  color: #777;
+  font-style: italic;
 }
