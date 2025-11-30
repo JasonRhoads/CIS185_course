@@ -1,62 +1,107 @@
 // src/App.jsx
 import { useState } from "react";
-import { useTaskStorage } from "./hooks/useTaskStorage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import TaskCount from "./components/TaskCount";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import FilterButtons from "./components/FilterButtons";
+import TaskCount from "./components/TaskCount";
+import ListInput from "./components/ListInput";
+import ListContainer from "./components/ListContainer";
+
+import { useTaskStorage } from "./hooks/useTaskStorage";
+import { useListStorage, DEFAULT_LIST_ID } from "./hooks/useListStorage";
 import "./App.css";
+
 
 function App() {
   // tasks will be an array of { id, text, completed, createdAt }
   const [tasks, setTasks] = useTaskStorage();
   const [filter, setFilter] = useState("all");
+  const [lists, setLists] = useListStorage();
+  const [newListName, setNewListName] = useState("");
 
-  function handleAddTask(text) {
+  function handleAddTask(text, listId) {
     const newTask = {
-      id: Date.now(),        // simple unique-ish id
-      text: text,
+      id: Date.now(),
+      text,
       completed: false,
       createdAt: new Date(),
+      listId: listId || DEFAULT_LIST_ID,
     };
 
-    // add the new task to the beginning of the list
-    setTasks((prevTasks) => [newTask, ...prevTasks]);
+    setTasks((prev) => [newTask, ...prev]);
   }
 
+
+
   function handleToggleTask(id) {
-  setTasks(prevTasks =>
-    prevTasks.map(task =>
-      task.id === id
-        ? { ...task, completed: !task.completed }
-        : task
-    )
-  );
-}
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  }
 
 
   function handleDeleteTask(id) {
-  setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-}
+    setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+  }
+
+  function handleAddList(name) {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+
+    const newList = {
+      id: Date.now().toString(),
+      name: trimmed,
+    };
+
+    setLists((prev) => [...prev, newList]);
+  }
+
+  function handleAddListSubmit(e) {
+    e.preventDefault();
+    handleAddList(newListName);
+    setNewListName("");
+  }
+
+  function handleDeleteList(listId) {
+    // Don't allow deleting the default "General" list
+    if (listId === DEFAULT_LIST_ID) {
+      console.warn("Cannot delete the default General list.");
+      return;
+    }
+    setLists((prev) => prev.filter((list) => list.id !== listId));
+
+    setTasks((prev) => prev.filter((task) => task.listId !== listId));
+  }
+
+  function handleRenameList(listId, newName) {
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+
+    setLists((prev) =>
+      prev.map((list) =>
+        list.id === listId ? { ...list, name: trimmed } : list
+      )
+    );
+  }
 
 
   // Filtering Logic
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") {
-      return !task.completed;
-    }
-    if (filter === "completed") {
-      return task.completed;
-    }
-    return true; // "all"
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
+    return true;
   });
 
-  // Task Counts
-  const activeCount = tasks.filter((task) => !task.completed).length;
-  const completedCount = tasks.filter((task) => task.completed).length;
-  const totalCount = tasks.length;
+  const activeCount = filteredTasks.filter((task) => !task.completed).length;
+  const completedCount = filteredTasks.filter((task) => task.completed).length;
+  const totalCount = filteredTasks.length;
+
 
 
   return (
@@ -79,13 +124,24 @@ function App() {
             totalCount={totalCount}
           />
 
-          <div className="task-lists-container">
-            <TaskList
-              tasks={filteredTasks}
-              onToggleTask={handleToggleTask}
-              onDeleteTask={handleDeleteTask}
-            />
-          </div>
+          <ListInput
+            newListName={newListName}
+            setNewListName={setNewListName}
+            onAddList={handleAddList}
+          />
+
+          <ListContainer
+            lists={lists}
+            tasks={tasks}
+            filteredTasks={filteredTasks}
+            onAddTask={handleAddTask}
+            onToggleTask={handleToggleTask}
+            onDeleteTask={handleDeleteTask}
+            onDeleteList={handleDeleteList}
+            onRenameList={handleRenameList}
+          />
+
+
         </section>
       </main>
 
