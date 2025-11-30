@@ -4,43 +4,84 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background: #f5f5f5;
+  background: var(--bg-body);
 }
+
+/************************
+--------Header-----------
+************************/
 
 .app-header {
   padding: 1.5rem;
-  text-align: center;
 }
 
-.app-main {
-  padding: 1.5rem;
+.app-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
+.app-header h1 {
+  margin: 0;
+  color: var(--text-main);
+}
+
+.app-header p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: var(--bg-panel-elevated);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--bg-task-hover);
+  border-color: var(--accent);
+}
+
+/************************
+------Main / Footer------
+************************/
+
+.app-main,
 .app-footer {
   padding: 1.5rem;
   display: flex;
   justify-content: center;
 }
 
-
 .app-footer {
   text-align: center;
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
+/************************
+--------Main Panel-------
+************************/
 
 .task-panel {
-  background: white;
-  border: 1px solid #e3e3e3;
+  background: var(--bg-panel);
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   gap: 1rem;
   max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 /* Input row */
@@ -51,9 +92,15 @@
 
 .task-input input {
   flex: 1;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-strong);
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
+  background: var(--bg-task);
+  color: var(--text-main);
+}
+
+.task-input input::placeholder {
+  color: var(--text-muted);
 }
 
 .task-input button {
@@ -70,86 +117,40 @@
 /* Global button styling for the app */
 button {
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-strong);
   padding: 0.5em 1em;
   font-size: 1em;
-  background-color: white;
+  background-color: var(--bg-task);
+  color: var(--text-main);
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.15s ease;
 }
 
 button:hover {
-  background-color: #f0f0f0;
-  border-color: #999;
+  background-color: var(--bg-task-hover);
+  border-color: var(--border-strong);
 }
-
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
+/* Filter active state */
 .filter-buttons button.active {
   font-weight: bold;
-  text-decoration: none;
-  border-color: #646cff;
-  background: #eef0ff;
+  text-decoration: underline;
+  border-color: var(--accent);
 }
 
-/* The "grid" that can host multiple lists */
-.task-lists-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
+/************************
+--------Lists------------
+************************/
 
-.task-list-column {
-  background: #ffffff;
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.task-list-column .task-input input {
-  background: #fafafa;
-}
-
-
-.task-list-title {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: center;
-  color: #333;
-}
-
-.list-name-input {
-  flex: 1;
-  border: 1px solid #ccc;
-  padding: 0.25rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.95rem;
-}
-
-.delete-list-button--disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.task-list-title {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-}
-
-
+/* Add List input (above the grid) */
 .list-input {
   display: flex;
   gap: 0.5rem;
@@ -158,9 +159,35 @@ button:focus-visible {
 
 .list-input input {
   flex: 1;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-strong);
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
+  background: var(--bg-task);
+  color: var(--text-main);
+}
+
+/* The grid that hosts multiple lists */
+.task-lists-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* List column card */
+.task-list-column {
+  background: var(--bg-panel-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Slightly tweak inputs inside list columns (still theme-aware) */
+.task-list-column .task-input input {
+  background: var(--bg-task-hover);
 }
 
 /* Header row inside each list */
@@ -172,42 +199,65 @@ button:focus-visible {
   margin-bottom: 0.5rem;
 }
 
+/* List title (used in multiple places, defined once) */
 .task-list-title {
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
   text-align: left;
+  cursor: pointer;
+  color: var(--text-main);
 }
 
+/* List rename input */
+.list-name-input {
+  flex: 1;
+  border: 1px solid var(--border-strong);
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background: var(--bg-task);
+  color: var(--text-main);
+}
+
+/* Delete list button */
 .delete-list-button {
   background: transparent;
   border: none;
-  color: #888;
+  color: var(--text-muted);
   font-size: 1rem;
   cursor: pointer;
   padding: 0;
 }
 
 .delete-list-button:hover {
-  color: #b33;
+  color: var(--danger);
 }
 
+.delete-list-button--disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 
+/************************
+--------Tasks------------
+************************/
 
-/* Task list + items */
+/* Task list container */
 .task-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+/* Task item row */
 .task-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.6rem;
-  border-bottom: 1px solid #eee;
-  background: #fff;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-task);
   transition:
     background-color 0.15s ease,
     border-color 0.15s ease,
@@ -224,7 +274,7 @@ button:focus-visible {
   cursor: grab;
   padding: 0 0.35rem;
   font-size: 1rem;
-  color: #888;
+  color: var(--text-muted);
   user-select: none;
 }
 
@@ -233,7 +283,7 @@ button:focus-visible {
 }
 
 .drag-handle:hover {
-  color: #555;
+  color: var(--text-main);
 }
 
 /* Container for checkbox + text */
@@ -242,53 +292,75 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  color: var(--text-main);
 }
 
-/* Fancy states */
-
-/* The item being dragged */
-.task-item--dragging {
-  opacity: 0.75;
-  transform: scale(0.98);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* The item under the cursor as a drop target */
-.task-item--drag-over {
-  border: 1px dashed #646cff;
-  background-color: #f5f7ff;
-}
-
+/* Completed task text */
 .task-text.completed {
   text-decoration: line-through;
   opacity: 0.6;
 }
 
+/* Hover + drag styles */
 .task-item:hover {
-  background: #fafafa;
+  background: var(--bg-task-hover);
 }
 
 .task-item:active {
   cursor: grabbing;
 }
 
+/* The item being dragged */
+.task-item--dragging {
+  opacity: 0.75;
+  transform: scale(0.98);
+  box-shadow: var(--shadow-soft);
+}
 
+/* The item under the cursor as a drop target */
+.task-item--drag-over {
+  border: 1px dashed var(--accent);
+  background-color: var(--accent-soft);
+}
 
+/* Delete task button */
 .delete-button {
   background: transparent;
   border: none;
-  color: #b33;
+  color: var(--danger);
   font-size: 1.1rem;
   cursor: pointer;
   padding: 0 0.3rem;
 }
 
 .delete-button:hover {
-  color: #e00;
+  color: var(--danger-hover);
 }
 
-
+/* Empty list text */
 .empty-list {
-  color: #777;
+  color: var(--text-muted);
   font-style: italic;
 }
+
+/* Task count */
+.task-count {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+
+.task-drop-zone {
+  min-height: 28px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background: var(--bg-task-hover);
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+}
+
+.task-drop-zone:hover,
+.task-drop-zone:active {
+  opacity: 0.6;
+}
+

@@ -15,20 +15,34 @@ function TaskList({
   onDragEnd,
 }) {
   if (tasks.length === 0) {
-    return <p className="empty-list">No tasks yet.</p>;
+    return (
+      <ul
+        className="task-list"
+        onDragOver={(e) => e.preventDefault()}
+      >
+        {/* Empty list: only show a drop zone */}
+        <li
+          className="task-drop-zone"
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onDropOnList(listId); // -> handleMoveTask(draggedId, null, listId)
+          }}
+        >
+          <span className="task-drop-zone-label">Drop here to add to this list</span>
+        </li>
+      </ul>
+    );
   }
 
   return (
     <ul
       className="task-list"
-      onDragOver={(e) => {
-        e.preventDefault();
-      }}
-      onDrop={(e) => {
-        e.preventDefault();
-        // Dropping into blank area at bottom of non-empty list
-        onDropOnList(listId);
-      }}
+      onDragOver={(e) => e.preventDefault()}
     >
       {tasks.map((task) => {
         const isDragging =
@@ -51,6 +65,23 @@ function TaskList({
           />
         );
       })}
+
+      {/* ✅ Bottom drop zone: "send to end of this list" */}
+      <li
+        className="task-drop-zone"
+        onDragOver={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onDropOnList(listId); // -> handleMoveTask(draggedId, null, listId)
+        }}
+      >
+        {/* This can be invisible or subtle; label is optional */}
+        <span className="task-drop-zone-label" />
+      </li>
     </ul>
   );
 }

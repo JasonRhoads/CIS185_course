@@ -1,5 +1,3 @@
-// src/components/TaskItem.jsx
-
 function TaskItem({
   task,
   onToggle,
@@ -21,25 +19,27 @@ function TaskItem({
 
   return (
     <li
-      className={liClassNames}
-      onDragOver={(e) => {
-        e.preventDefault();
-        onDragOverItem();
-      }}
-      onDrop={(e) => {
-        e.preventDefault();
-        onDrop();
-      }}
-    >
-      <span
-        className="drag-handle"
-        draggable
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        title="Drag to reorder or move"
-      >
-        ⋮⋮
-      </span>
+        className={liClassNames}
+        onDragOver={(e) => {
+            e.preventDefault();
+            e.stopPropagation();      // ✅ don't bubble to <ul>
+            onDragOverItem();
+        }}
+        onDrop={(e) => {
+            e.preventDefault();
+            e.stopPropagation();      // ✅ don't bubble to <ul>
+            onDrop();                 // → calls handleMoveTask(draggedId, targetId, listId)
+        }}
+        >
+        <span
+            className="drag-handle"
+            draggable
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            title="Drag to reorder or move"
+        >
+            ⋮⋮
+        </span>
 
       <label className="task-content">
         <input

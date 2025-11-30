@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TaskInput from "./components/TaskInput";
@@ -20,6 +20,22 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [lists, setLists] = useListStorage();
   const [newListName, setNewListName] = useState("");
+
+    // NEW: theme state
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem("assignment5-theme");
+    return stored === "dark" ? "dark" : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("assignment5-theme", theme);
+  }, [theme]);
+
+  function handleToggleTheme() {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  }
+
 
   function handleAddTask(text, listId) {
     const newTask = {
@@ -92,41 +108,112 @@ function App() {
 
   function handleMoveTask(draggedId, targetId, targetListId) {
     setTasks((prev) => {
-      const items = [...prev];
+      const getListId = (t) => t.listId || DEFAULT_LIST_ID;
 
-      const fromIndex = items.findIndex((task) => task.id === draggedId);
-      if (fromIndex === -1) return prev;
+      const dragged = prev.find((t) => t.id === draggedId);
+      if (!dragged) return prev;
 
-      const [moved] = items.splice(fromIndex, 1);
+      const originalListId = getListId(dragged);
+      const newListId = targetListId || originalListId;
+      const sameList = originalListId === newListId;
 
-      // update which list it's in
-      if (targetListId) {
-        moved.listId = targetListId;
-      }
+      // ----------------------------------
+      // Case 1: Reorder within the same list
+      // ----------------------------------
+      if (sameList) {
+        const listId = originalListId;
 
-      // If no specific target item, drop at end of that list
-      if (!targetId) {
-        let insertIndex = items.length;
-        for (let i = items.length - 1; i >= 0; i--) {
-          if (items[i].listId === moved.listId) {
-            insertIndex = i + 1;
-            break;
+        // Tasks in this list, in current order
+        const listTasks = prev.filter((t) => getListId(t) === listId);
+
+        // Remove dragged from that sequence
+        const withoutDragged = listTasks.filter((t) => t.id !== draggedId);
+
+        let reorderedList;
+
+        if (!targetId) {
+          // No specific target → drop at END of this list
+          reorderedList = [...withoutDragged, dragged];
+        } else {
+          const targetIndex = withoutDragged.findIndex((t) => t.id === targetId);
+          if (targetIndex === -1) {
+            // If target not found, still drop at end
+            reorderedList = [...withoutDragged, dragged];
+          } else {
+            // ✅ Always insert ABOVE the target
+            reorderedList = [...withoutDragged];
+            reorderedList.splice(targetIndex, 0, dragged);
           }
         }
-        items.splice(insertIndex, 0, moved);
-        return items;
+
+        // Rebuild global array using the reordered list sequence
+        const result = [];
+        let listPos = 0;
+
+        for (const t of prev) {
+          if (getListId(t) === listId) {
+            result.push(reorderedList[listPos++]);
+          } else {
+            result.push(t);
+          }
+        }
+
+        return result;
       }
 
-      const toIndex = items.findIndex((task) => task.id === targetId);
-      if (toIndex === -1) {
-        items.push(moved);
-        return items;
+      // ----------------------------------
+      // Case 2: Move across lists
+      // ----------------------------------
+      const origId = originalListId;
+      const newId = newListId;
+
+      // Tasks in original list (minus dragged)
+      const origTasks = prev.filter(
+        (t) => getListId(t) === origId && t.id !== draggedId
+      );
+
+      // Tasks already in target list
+      const baseNewTasks = prev.filter((t) => getListId(t) === newId);
+
+      const draggedForNewList = { ...dragged, listId: newId };
+
+      let newTasks;
+      if (!targetId) {
+        // No specific target → go to END of target list
+        newTasks = [...baseNewTasks, draggedForNewList];
+      } else {
+        const targetIndex = baseNewTasks.findIndex((t) => t.id === targetId);
+        const insertIndex =
+          targetIndex === -1 ? baseNewTasks.length : targetIndex; // ABOVE target
+        newTasks = [...baseNewTasks];
+        newTasks.splice(insertIndex, 0, draggedForNewList);
       }
 
-      items.splice(toIndex, 0, moved);
-      return items;
+      // Rebuild global array with updated orig + new list sequences
+      const result = [];
+      let origPos = 0;
+      let newPos = 0;
+
+      for (const t of prev) {
+        const lid = getListId(t);
+
+        if (lid === origId) {
+          if (origPos < origTasks.length) {
+            result.push(origTasks[origPos++]);
+          }
+        } else if (lid === newId) {
+          if (newPos < newTasks.length) {
+            result.push(newTasks[newPos++]);
+          }
+        } else {
+          result.push(t);
+        }
+      }
+
+      return result;
     });
   }
+
 
 
 
@@ -145,7 +232,11 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header 
+        theme={theme} 
+        onToggleTheme={handleToggleTheme} 
+      />
+
 
       <main className="app-main">
         <section className="task-panel">
