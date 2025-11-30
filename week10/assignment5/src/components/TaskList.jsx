@@ -1,87 +1,73 @@
 // src/components/TaskList.jsx
+
+import { useState } from "react";
 import TaskItem from "./TaskItem";
 
-function TaskList({
-  listId,
-  tasks,
-  draggedTask,
-  dragOverTask,
-  onToggleTask,
-  onDeleteTask,
-  onDragStart,
-  onDragOverItem,
-  onDropOnItem,
-  onDropOnList,
-  onDragEnd,
-}) {
+/**
+ * TaskList Component
+ *
+ * Renders a list of TaskItem components for a single list.
+ * Also manages local drag-and-drop state for reordering tasks
+ * within this list only.
+ *
+ * Props:
+ * - tasks (array): tasks that belong to this list
+ * - onToggleTask (function): toggles a task's completed state
+ * - onDeleteTask (function): deletes a task
+ * - onReorderTask (function): reorders tasks (draggedId, targetId)
+ */
+function TaskList({ tasks, onToggleTask, onDeleteTask, onReorderTask }) {
+  const [draggedId, setDraggedId] = useState(null);
+  const [dragOverId, setDragOverId] = useState(null);
+
+  // Show an empty state if there are no tasks in this list
   if (tasks.length === 0) {
-    return (
-      <ul
-        className="task-list"
-        onDragOver={(e) => e.preventDefault()}
-      >
-        {/* Empty list: only show a drop zone */}
-        <li
-          className="task-drop-zone"
-          onDragOver={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          onDrop={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onDropOnList(listId); // -> handleMoveTask(draggedId, null, listId)
-          }}
-        >
-          <span className="task-drop-zone-label">Drop here to add to this list</span>
-        </li>
-      </ul>
-    );
+    return <p className="empty-list">No tasks yet.</p>;
+  }
+
+  // Called when the user starts dragging a task
+  function handleDragStart(id) {
+    setDraggedId(id);
+  }
+
+  // Track which task the dragged item is currently hovering over
+  function handleDragOverItem(id) {
+    if (id !== dragOverId) {
+      setDragOverId(id);
+    }
+  }
+
+  // Called when a dragged task is dropped on another task
+  function handleDrop(targetId) {
+    if (!draggedId) return;
+
+    onReorderTask(draggedId, targetId);
+    setDraggedId(null);
+    setDragOverId(null);
+  }
+
+  // Reset drag state when dragging stops
+  function handleDragEnd() {
+    setDraggedId(null);
+    setDragOverId(null);
   }
 
   return (
-    <ul
-      className="task-list"
-      onDragOver={(e) => e.preventDefault()}
-    >
-      {tasks.map((task) => {
-        const isDragging =
-          draggedTask && draggedTask.id === task.id && draggedTask.listId === listId;
-        const isDragOver =
-          dragOverTask && dragOverTask.id === task.id && dragOverTask.listId === listId;
-
-        return (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onToggle={onToggleTask}
-            onDelete={onDeleteTask}
-            onDragStart={() => onDragStart(task.id, listId)}
-            onDragOverItem={() => onDragOverItem(task.id, listId)}
-            onDrop={() => onDropOnItem(task.id, listId)}
-            onDragEnd={onDragEnd}
-            isDragging={isDragging}
-            isDragOver={isDragOver}
-          />
-        );
-      })}
-
-      {/* ✅ Bottom drop zone: "send to end of this list" */}
-      <li
-        className="task-drop-zone"
-        onDragOver={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        onDrop={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onDropOnList(listId); // -> handleMoveTask(draggedId, null, listId)
-        }}
-      >
-        {/* This can be invisible or subtle; label is optional */}
-        <span className="task-drop-zone-label" />
-      </li>
+    <ul className="task-list">
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onToggle={onToggleTask}
+          onDelete={onDeleteTask}
+          onDragStart={() => handleDragStart(task.id)}
+          onDragOverItem={() => handleDragOverItem(task.id)}
+          onDrop={() => handleDrop(task.id)}
+          onDragEnd={handleDragEnd}
+          isDragging={draggedId === task.id}
+          isDragOver={dragOverId === task.id}
+        />
+      ))}
     </ul>
   );
 }

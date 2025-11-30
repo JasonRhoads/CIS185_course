@@ -1,17 +1,30 @@
 // src/components/TaskInput.jsx
+
 import { useState } from "react";
 
+/**
+ * TaskInput Component
+ *
+ * Renders the input field and button used to add a new task.
+ *
+ * Props:
+ * - onAddTask (function): called when a valid task text is submitted
+ */
 function TaskInput({ onAddTask }) {
   const [text, setText] = useState("");
 
+  /**
+   * Handles form submission for creating a new task.
+   * Empty or whitespace-only entries are ignored.
+   */
   function handleSubmit(e) {
     e.preventDefault();
+
     const trimmed = text.trim();
     if (!trimmed) return;
 
-    // We'll wire this up in the next step
     onAddTask(trimmed);
-    setText("");
+    setText(""); // clear input field after successful add
   }
 
   return (

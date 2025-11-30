@@ -1,5 +1,6 @@
 /* src/App.css */
 
+/* Root app layout: header / main / footer stacked vertically */
 .app {
   min-height: 100vh;
   display: grid;
@@ -11,10 +12,12 @@
 --------Header-----------
 ************************/
 
+/* Top header bar */
 .app-header {
   padding: 1.5rem;
 }
 
+/* Header content wrapper (centers + constrains width) */
 .app-header-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -34,7 +37,7 @@
   color: var(--text-muted);
 }
 
-/* Theme toggle button */
+/* Theme toggle button in the header */
 .theme-toggle {
   border-radius: 999px;
   border: 1px solid var(--border-strong);
@@ -55,6 +58,7 @@
 ------Main / Footer------
 ************************/
 
+/* Center main content + footer horizontally */
 .app-main,
 .app-footer {
   padding: 1.5rem;
@@ -62,6 +66,7 @@
   justify-content: center;
 }
 
+/* Footer text styling */
 .app-footer {
   text-align: center;
   color: var(--text-muted);
@@ -72,6 +77,7 @@
 --------Main Panel-------
 ************************/
 
+/* Main "card" that holds filters + lists */
 .task-panel {
   background: var(--bg-panel);
   border-radius: 8px;
@@ -84,7 +90,7 @@
   width: 100%;
 }
 
-/* Input row */
+/* Row for task input + add button */
 .task-input {
   display: flex;
   gap: 0.5rem;
@@ -103,11 +109,12 @@
   color: var(--text-muted);
 }
 
+/* Slightly tighter padding on the main add button */
 .task-input button {
   padding: 0.5rem 0.9rem;
 }
 
-/* Filter buttons row */
+/* Filter buttons row (All / Active / Completed) */
 .filter-buttons {
   display: flex;
   gap: 0.5rem;
@@ -139,18 +146,17 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Filter active state */
+/* Active filter button state */
 .filter-buttons button.active {
   font-weight: bold;
   text-decoration: underline;
-  border-color: var(--accent);
 }
 
 /************************
 --------Lists------------
 ************************/
 
-/* Add List input (above the grid) */
+/* "Add List" input row above the grid of lists */
 .list-input {
   display: flex;
   gap: 0.5rem;
@@ -166,14 +172,14 @@ button:focus-visible {
   color: var(--text-main);
 }
 
-/* The grid that hosts multiple lists */
+/* Responsive grid that hosts multiple lists */
 .task-lists-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
 
-/* List column card */
+/* Individual list "card" */
 .task-list-column {
   background: var(--bg-panel-elevated);
   border: 1px solid var(--border-subtle);
@@ -185,12 +191,12 @@ button:focus-visible {
   gap: 0.75rem;
 }
 
-/* Slightly tweak inputs inside list columns (still theme-aware) */
+/* Inputs inside list columns use a slightly different background */
 .task-list-column .task-input input {
   background: var(--bg-task-hover);
 }
 
-/* Header row inside each list */
+/* Header row inside each list: title + delete button */
 .task-list-header-row {
   display: flex;
   align-items: center;
@@ -199,7 +205,7 @@ button:focus-visible {
   margin-bottom: 0.5rem;
 }
 
-/* List title (used in multiple places, defined once) */
+/* List title (clickable / editable) */
 .task-list-title {
   margin: 0;
   font-size: 1rem;
@@ -243,7 +249,7 @@ button:focus-visible {
 --------Tasks------------
 ************************/
 
-/* Task list container */
+/* UL that holds task items */
 .task-list {
   list-style: none;
   margin: 0;
@@ -269,7 +275,7 @@ button:focus-visible {
   border-bottom: none;
 }
 
-/* Drag handle */
+/* Drag handle at the start of each task row */
 .drag-handle {
   cursor: grab;
   padding: 0 0.35rem;
@@ -295,7 +301,7 @@ button:focus-visible {
   color: var(--text-main);
 }
 
-/* Completed task text */
+/* Completed task text state */
 .task-text.completed {
   text-decoration: line-through;
   opacity: 0.6;
@@ -310,7 +316,7 @@ button:focus-visible {
   cursor: grabbing;
 }
 
-/* The item being dragged */
+/* The item currently being dragged */
 .task-item--dragging {
   opacity: 0.75;
   transform: scale(0.98);
@@ -323,7 +329,7 @@ button:focus-visible {
   background-color: var(--accent-soft);
 }
 
-/* Delete task button */
+/* Delete task button (trash "X") */
 .delete-button {
   background: transparent;
   border: none;
@@ -337,30 +343,15 @@ button:focus-visible {
   color: var(--danger-hover);
 }
 
+
 /* Empty list text */
 .empty-list {
   color: var(--text-muted);
   font-style: italic;
 }
 
-/* Task count */
+/* Task count summary text */
 .task-count {
   font-size: 0.9rem;
   color: var(--text-muted);
 }
-
-
-.task-drop-zone {
-  min-height: 28px;
-  margin-top: 8px;
-  border-radius: 4px;
-  background: var(--bg-task-hover);
-  opacity: 0.9;
-  transition: opacity 0.15s ease;
-}
-
-.task-drop-zone:hover,
-.task-drop-zone:active {
-  opacity: 0.6;
-}
-

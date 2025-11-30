@@ -1,84 +1,50 @@
 // src/components/ListContainer.jsx
-import { useState } from "react";
+
 import TaskInput from "./TaskInput";
 import TaskList from "./TaskList";
 import { DEFAULT_LIST_ID } from "../hooks/useListStorage";
 
+/**
+ * ListContainer Component
+ *
+ * Renders all task lists (columns). Each column contains:
+ * - a list title (rename on double-click)
+ * - a delete button (except for the default list)
+ * - an input field to add tasks to that list
+ * - a TaskList containing the tasks for that list
+ *
+ * Props:
+ * - lists: array of all list objects
+ * - filteredTasks: tasks after applying the current filter (all/active/completed)
+ * - onAddTask:    adds a new task to a specific list
+ * - onToggleTask: toggles a task as completed/uncompleted
+ * - onDeleteTask: deletes a task
+ * - onDeleteList: deletes an entire list (except "General")
+ * - onRenameList: renames a list title
+ * - onReorderTask: reorders tasks within a list (drag-and-drop)
+ */
 function ListContainer({
   lists,
-  tasks,
   filteredTasks,
   onAddTask,
   onToggleTask,
   onDeleteTask,
   onDeleteList,
   onRenameList,
-  onMoveTask,
+  onReorderTask,
 }) {
-  const [draggedTask, setDraggedTask] = useState(null); // { id, listId }
-  const [dragOverTask, setDragOverTask] = useState(null); // { id, listId }
-
-  function startEditing(list) {
-    // handled in App via onRenameList; editing UI is in this component,
-    // but you already wired that part earlier
-  }
-
-  function handleDragStart(taskId, listId) {
-    setDraggedTask({ id: taskId, listId });
-  }
-
-  function handleDragOverItem(taskId, listId) {
-    setDragOverTask({ id: taskId, listId });
-  }
-
-  function handleDropOnItem(taskId, listId) {
-    if (!draggedTask) return;
-    onMoveTask(draggedTask.id, taskId, listId);
-    setDraggedTask(null);
-    setDragOverTask(null);
-  }
-
-  function handleDropOnList(listId) {
-    if (!draggedTask) return;
-    // Drop into empty space in this list → end of that list
-    onMoveTask(draggedTask.id, null, listId);
-    setDraggedTask(null);
-    setDragOverTask(null);
-  }
-
-  function handleDragEnd() {
-    setDraggedTask(null);
-    setDragOverTask(null);
-  }
-
   return (
     <div className="task-lists-container">
       {lists.map((list) => {
+        // Filter tasks belonging to this list
         const tasksForList = filteredTasks.filter(
           (task) => (task.listId || DEFAULT_LIST_ID) === list.id
         );
 
         return (
-          <div
-            key={list.id}
-            className="task-list-column"
-            onDragOver={(e) => {
-              e.preventDefault();
-              // If the list is empty, allow dropping on the column itself
-              if (tasksForList.length === 0) {
-                setDragOverTask(null);
-              }
-            }}
-            onDrop={(e) => {
-              e.preventDefault();
-              if (tasksForList.length === 0) {
-                handleDropOnList(list.id);
-              }
-            }}
-          >
+          <div key={list.id} className="task-list-column">
+            {/* Header row: list title + delete button */}
             <div className="task-list-header-row">
-              {/* editing UI you already wired lives here */}
-              {/* simplified title+delete version shown for context */}
               <h2
                 className="task-list-title"
                 title="Double-click to rename"
@@ -89,13 +55,13 @@ function ListContainer({
                 {list.name}
               </h2>
 
-              {/* Protect General (DEFAULT_LIST_ID) from deletion */}
+              {/* Prevent deleting the default list */}
               {list.id === DEFAULT_LIST_ID ? (
                 <button
                   type="button"
                   className="delete-list-button delete-list-button--disabled"
                   disabled
-                  title="Cannot delete the default list"
+                  title="This is the default list"
                 >
                   ✕
                 </button>
@@ -104,27 +70,22 @@ function ListContainer({
                   type="button"
                   className="delete-list-button"
                   onClick={() => onDeleteList(list.id)}
-                  title="Delete list"
+                  title="Delete this list"
                 >
                   ✕
                 </button>
               )}
             </div>
 
+            {/* Add task input for this list */}
             <TaskInput onAddTask={(text) => onAddTask(text, list.id)} />
 
+            {/* Task list (with drag-to-reorder) */}
             <TaskList
-              listId={list.id}
               tasks={tasksForList}
-              draggedTask={draggedTask}
-              dragOverTask={dragOverTask}
               onToggleTask={onToggleTask}
               onDeleteTask={onDeleteTask}
-              onDragStart={handleDragStart}
-              onDragOverItem={handleDragOverItem}
-              onDropOnItem={handleDropOnItem}
-              onDropOnList={handleDropOnList}
-              onDragEnd={handleDragEnd}
+              onReorderTask={onReorderTask}
             />
           </div>
         );

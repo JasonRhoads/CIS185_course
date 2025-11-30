@@ -1,9 +1,9 @@
 // src/App.jsx
+
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TaskInput from "./components/TaskInput";
-import TaskList from "./components/TaskList";
 import FilterButtons from "./components/FilterButtons";
 import TaskCount from "./components/TaskCount";
 import ListInput from "./components/ListInput";
@@ -13,20 +13,41 @@ import { useTaskStorage } from "./hooks/useTaskStorage";
 import { useListStorage, DEFAULT_LIST_ID } from "./hooks/useListStorage";
 import "./App.css";
 
-
+/**
+ * App Component (root)
+ *
+ * Manages:
+ * - tasks (add, toggle, delete, reorder)
+ * - lists (add, delete, rename)
+ * - filter state (all / active / completed)
+ * - theme (light / dark) with localStorage persistence
+ *
+ * Renders:
+ * - Header (with theme toggle)
+ * - Main task panel (inputs, filters, lists)
+ * - Footer
+ */
 function App() {
-  // tasks will be an array of { id, text, completed, createdAt }
+  // Tasks are stored and loaded via custom hook with localStorage
+  // Shape: { id, text, completed, createdAt, listId }
   const [tasks, setTasks] = useTaskStorage();
+
+  // Current filter: "all" | "active" | "completed"
   const [filter, setFilter] = useState("all");
+
+  // Lists (columns) are also stored with localStorage
   const [lists, setLists] = useListStorage();
+
+  // Controlled input state for creating a new list
   const [newListName, setNewListName] = useState("");
 
-    // NEW: theme state
+  // Theme state: "light" or "dark"
   const [theme, setTheme] = useState(() => {
     const stored = localStorage.getItem("assignment5-theme");
     return stored === "dark" ? "dark" : "light";
   });
 
+  // Apply theme on initial load and whenever it changes
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("assignment5-theme", theme);
@@ -36,7 +57,10 @@ function App() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   }
 
-
+  /**
+   * Add a new task to a specific list.
+   * If no listId is provided, use the default "General" list.
+   */
   function handleAddTask(text, listId) {
     const newTask = {
       id: Date.now(),
@@ -46,14 +70,16 @@ function App() {
       listId: listId || DEFAULT_LIST_ID,
     };
 
+    // Add newest tasks to the top
     setTasks((prev) => [newTask, ...prev]);
   }
 
-
-
+  /**
+   * Toggle a task's completed state.
+   */
   function handleToggleTask(id) {
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
         task.id === id
           ? { ...task, completed: !task.completed }
           : task
@@ -61,11 +87,16 @@ function App() {
     );
   }
 
-
+  /**
+   * Delete a task by id.
+   */
   function handleDeleteTask(id) {
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   }
 
+  /**
+   * Add a new list/column by name.
+   */
   function handleAddList(name) {
     const trimmed = name.trim();
     if (!trimmed) return;
@@ -78,23 +109,23 @@ function App() {
     setLists((prev) => [...prev, newList]);
   }
 
-  function handleAddListSubmit(e) {
-    e.preventDefault();
-    handleAddList(newListName);
-    setNewListName("");
-  }
-
+  /**
+   * Delete a list and all tasks that belong to it.
+   * The default list (General) cannot be deleted.
+   */
   function handleDeleteList(listId) {
-    // Don't allow deleting the default "General" list
     if (listId === DEFAULT_LIST_ID) {
       console.warn("Cannot delete the default General list.");
       return;
     }
-    setLists((prev) => prev.filter((list) => list.id !== listId));
 
+    setLists((prev) => prev.filter((list) => list.id !== listId));
     setTasks((prev) => prev.filter((task) => task.listId !== listId));
   }
 
+  /**
+   * Rename a list by id.
+   */
   function handleRenameList(listId, newName) {
     const trimmed = newName.trim();
     if (!trimmed) return;
@@ -106,172 +137,78 @@ function App() {
     );
   }
 
-  function handleMoveTask(draggedId, targetId, targetListId) {
+  /**
+   * Reorder tasks based on drag-and-drop.
+   * Only reorders within the same list; we don't move tasks across lists.
+   */
+  function handleReorderTask(draggedId, targetId) {
+    if (draggedId === targetId) return;
+
     setTasks((prev) => {
-      const getListId = (t) => t.listId || DEFAULT_LIST_ID;
+      const items = [...prev];
+      const fromIndex = items.findIndex((task) => task.id === draggedId);
+      const toIndex = items.findIndex((task) => task.id === targetId);
 
-      const dragged = prev.find((t) => t.id === draggedId);
-      if (!dragged) return prev;
+      if (fromIndex === -1 || toIndex === -1) return prev;
 
-      const originalListId = getListId(dragged);
-      const newListId = targetListId || originalListId;
-      const sameList = originalListId === newListId;
+      const [moved] = items.splice(fromIndex, 1);
+      items.splice(toIndex, 0, moved);
 
-      // ----------------------------------
-      // Case 1: Reorder within the same list
-      // ----------------------------------
-      if (sameList) {
-        const listId = originalListId;
-
-        // Tasks in this list, in current order
-        const listTasks = prev.filter((t) => getListId(t) === listId);
-
-        // Remove dragged from that sequence
-        const withoutDragged = listTasks.filter((t) => t.id !== draggedId);
-
-        let reorderedList;
-
-        if (!targetId) {
-          // No specific target → drop at END of this list
-          reorderedList = [...withoutDragged, dragged];
-        } else {
-          const targetIndex = withoutDragged.findIndex((t) => t.id === targetId);
-          if (targetIndex === -1) {
-            // If target not found, still drop at end
-            reorderedList = [...withoutDragged, dragged];
-          } else {
-            // ✅ Always insert ABOVE the target
-            reorderedList = [...withoutDragged];
-            reorderedList.splice(targetIndex, 0, dragged);
-          }
-        }
-
-        // Rebuild global array using the reordered list sequence
-        const result = [];
-        let listPos = 0;
-
-        for (const t of prev) {
-          if (getListId(t) === listId) {
-            result.push(reorderedList[listPos++]);
-          } else {
-            result.push(t);
-          }
-        }
-
-        return result;
-      }
-
-      // ----------------------------------
-      // Case 2: Move across lists
-      // ----------------------------------
-      const origId = originalListId;
-      const newId = newListId;
-
-      // Tasks in original list (minus dragged)
-      const origTasks = prev.filter(
-        (t) => getListId(t) === origId && t.id !== draggedId
-      );
-
-      // Tasks already in target list
-      const baseNewTasks = prev.filter((t) => getListId(t) === newId);
-
-      const draggedForNewList = { ...dragged, listId: newId };
-
-      let newTasks;
-      if (!targetId) {
-        // No specific target → go to END of target list
-        newTasks = [...baseNewTasks, draggedForNewList];
-      } else {
-        const targetIndex = baseNewTasks.findIndex((t) => t.id === targetId);
-        const insertIndex =
-          targetIndex === -1 ? baseNewTasks.length : targetIndex; // ABOVE target
-        newTasks = [...baseNewTasks];
-        newTasks.splice(insertIndex, 0, draggedForNewList);
-      }
-
-      // Rebuild global array with updated orig + new list sequences
-      const result = [];
-      let origPos = 0;
-      let newPos = 0;
-
-      for (const t of prev) {
-        const lid = getListId(t);
-
-        if (lid === origId) {
-          if (origPos < origTasks.length) {
-            result.push(origTasks[origPos++]);
-          }
-        } else if (lid === newId) {
-          if (newPos < newTasks.length) {
-            result.push(newTasks[newPos++]);
-          }
-        } else {
-          result.push(t);
-        }
-      }
-
-      return result;
+      return items;
     });
   }
 
-
-
-
-  // Filtering Logic
+  // Filter tasks based on the selected filter mode
   const filteredTasks = tasks.filter((task) => {
     if (filter === "active") return !task.completed;
     if (filter === "completed") return task.completed;
-    return true;
+    return true; // "all"
   });
 
+  // Counts are based on the currently filtered set
   const activeCount = filteredTasks.filter((task) => !task.completed).length;
   const completedCount = filteredTasks.filter((task) => task.completed).length;
-  const totalCount = filteredTasks.length;
-
-
 
   return (
     <div className="app">
-      <Header 
-        theme={theme} 
-        onToggleTheme={handleToggleTheme} 
-      />
-
+      <Header theme={theme} onToggleTheme={handleToggleTheme} />
 
       <main className="app-main">
         <section className="task-panel">
+          {/* Add new task to the selected list (defaults to General) */}
           <TaskInput onAddTask={handleAddTask} />
 
+          {/* Filter controls (All / Active / Completed) */}
           <FilterButtons
             currentFilter={filter}
             onChangeFilter={setFilter}
           />
-          
+
+          {/* Summary of task counts for the current filter */}
           <TaskCount
             filter={filter}
             activeCount={activeCount}
             completedCount={completedCount}
-            totalCount={totalCount}
           />
 
+          {/* Add new list/column */}
           <ListInput
             newListName={newListName}
             setNewListName={setNewListName}
             onAddList={handleAddList}
           />
 
+          {/* All lists (columns) and their tasks */}
           <ListContainer
             lists={lists}
-            tasks={tasks}
             filteredTasks={filteredTasks}
             onAddTask={handleAddTask}
             onToggleTask={handleToggleTask}
             onDeleteTask={handleDeleteTask}
             onDeleteList={handleDeleteList}
             onRenameList={handleRenameList}
-            onMoveTask={handleMoveTask}
+            onReorderTask={handleReorderTask}
           />
-
         </section>
       </main>
 
