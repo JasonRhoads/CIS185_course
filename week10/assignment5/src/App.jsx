@@ -90,22 +90,44 @@ function App() {
     );
   }
 
-  function handleReorderTask(draggedId, targetId) {
-    if (draggedId === targetId) return;
-
+  function handleMoveTask(draggedId, targetId, targetListId) {
     setTasks((prev) => {
       const items = [...prev];
-      const fromIndex = items.findIndex((task) => task.id === draggedId);
-      const toIndex = items.findIndex((task) => task.id === targetId);
 
-      if (fromIndex === -1 || toIndex === -1) return prev;
+      const fromIndex = items.findIndex((task) => task.id === draggedId);
+      if (fromIndex === -1) return prev;
 
       const [moved] = items.splice(fromIndex, 1);
-      items.splice(toIndex, 0, moved);
 
+      // update which list it's in
+      if (targetListId) {
+        moved.listId = targetListId;
+      }
+
+      // If no specific target item, drop at end of that list
+      if (!targetId) {
+        let insertIndex = items.length;
+        for (let i = items.length - 1; i >= 0; i--) {
+          if (items[i].listId === moved.listId) {
+            insertIndex = i + 1;
+            break;
+          }
+        }
+        items.splice(insertIndex, 0, moved);
+        return items;
+      }
+
+      const toIndex = items.findIndex((task) => task.id === targetId);
+      if (toIndex === -1) {
+        items.push(moved);
+        return items;
+      }
+
+      items.splice(toIndex, 0, moved);
       return items;
     });
   }
+
 
 
   // Filtering Logic
@@ -156,7 +178,7 @@ function App() {
             onDeleteTask={handleDeleteTask}
             onDeleteList={handleDeleteList}
             onRenameList={handleRenameList}
-            onReorderTask={handleReorderTask}
+            onMoveTask={handleMoveTask}
           />
 
         </section>

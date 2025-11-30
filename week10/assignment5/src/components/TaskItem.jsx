@@ -24,17 +24,19 @@ function TaskItem({
       className={liClassNames}
       onDragOver={(e) => {
         e.preventDefault();
-        onDragOverItem(task.id);
+        onDragOverItem();
       }}
-      onDrop={() => onDrop(task.id)}
+      onDrop={(e) => {
+        e.preventDefault();
+        onDrop();
+      }}
     >
-      {/* Drag handle only */}
       <span
         className="drag-handle"
         draggable
-        onDragStart={() => onDragStart(task.id)}
+        onDragStart={onDragStart}
         onDragEnd={onDragEnd}
-        title="Drag to reorder"
+        title="Drag to reorder or move"
       >
         ⋮⋮
       </span>

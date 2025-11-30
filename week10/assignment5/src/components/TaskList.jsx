@@ -1,53 +1,56 @@
 // src/components/TaskList.jsx
-import { useState } from "react";
 import TaskItem from "./TaskItem";
 
-function TaskList({ tasks, onToggleTask, onDeleteTask, onReorderTask }) {
-  const [draggedId, setDraggedId] = useState(null);
-  const [dragOverId, setDragOverId] = useState(null);
-
+function TaskList({
+  listId,
+  tasks,
+  draggedTask,
+  dragOverTask,
+  onToggleTask,
+  onDeleteTask,
+  onDragStart,
+  onDragOverItem,
+  onDropOnItem,
+  onDropOnList,
+  onDragEnd,
+}) {
   if (tasks.length === 0) {
     return <p className="empty-list">No tasks yet.</p>;
   }
 
-  function handleDragStart(id) {
-    setDraggedId(id);
-  }
-
-  function handleDragOver(id) {
-    if (id !== dragOverId) {
-      setDragOverId(id);
-    }
-  }
-
-  function handleDrop(targetId) {
-    if (!draggedId) return;
-    onReorderTask(draggedId, targetId);
-    setDraggedId(null);
-    setDragOverId(null);
-  }
-
-  function handleDragEnd() {
-    setDraggedId(null);
-    setDragOverId(null);
-  }
-
   return (
-    <ul className="task-list">
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onToggle={onToggleTask}
-          onDelete={onDeleteTask}
-          onDragStart={handleDragStart}
-          onDragOverItem={handleDragOver}
-          onDrop={handleDrop}
-          onDragEnd={handleDragEnd}
-          isDragging={draggedId === task.id}
-          isDragOver={dragOverId === task.id}
-        />
-      ))}
+    <ul
+      className="task-list"
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        // Dropping into blank area at bottom of non-empty list
+        onDropOnList(listId);
+      }}
+    >
+      {tasks.map((task) => {
+        const isDragging =
+          draggedTask && draggedTask.id === task.id && draggedTask.listId === listId;
+        const isDragOver =
+          dragOverTask && dragOverTask.id === task.id && dragOverTask.listId === listId;
+
+        return (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onToggle={onToggleTask}
+            onDelete={onDeleteTask}
+            onDragStart={() => onDragStart(task.id, listId)}
+            onDragOverItem={() => onDragOverItem(task.id, listId)}
+            onDrop={() => onDropOnItem(task.id, listId)}
+            onDragEnd={onDragEnd}
+            isDragging={isDragging}
+            isDragOver={isDragOver}
+          />
+        );
+      })}
     </ul>
   );
 }
