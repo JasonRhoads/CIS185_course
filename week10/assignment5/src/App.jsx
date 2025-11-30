@@ -90,6 +90,23 @@ function App() {
     );
   }
 
+  function handleReorderTask(draggedId, targetId) {
+    if (draggedId === targetId) return;
+
+    setTasks((prev) => {
+      const items = [...prev];
+      const fromIndex = items.findIndex((task) => task.id === draggedId);
+      const toIndex = items.findIndex((task) => task.id === targetId);
+
+      if (fromIndex === -1 || toIndex === -1) return prev;
+
+      const [moved] = items.splice(fromIndex, 1);
+      items.splice(toIndex, 0, moved);
+
+      return items;
+    });
+  }
+
 
   // Filtering Logic
   const filteredTasks = tasks.filter((task) => {
@@ -139,8 +156,8 @@ function App() {
             onDeleteTask={handleDeleteTask}
             onDeleteList={handleDeleteList}
             onRenameList={handleRenameList}
+            onReorderTask={handleReorderTask}
           />
-
 
         </section>
       </main>

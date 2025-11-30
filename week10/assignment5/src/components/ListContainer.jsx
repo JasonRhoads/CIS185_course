@@ -13,6 +13,7 @@ function ListContainer({
   onDeleteTask,
   onDeleteList,
   onRenameList,
+  onReorderTask,
 }) {
 
   const [editingListId, setEditingListId] = useState(null);
@@ -118,6 +119,7 @@ function ListContainer({
               tasks={tasksForList}
               onToggleTask={onToggleTask}
               onDeleteTask={onDeleteTask}
+              onReorderTask={onReorderTask}
             />
           </div>
         );
