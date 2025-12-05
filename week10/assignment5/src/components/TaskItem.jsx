@@ -7,19 +7,20 @@
  * Supports:
  * - toggling completion
  * - deleting the task
- * - drag-and-drop for reordering within the same list
+ * - drag-and-drop for reordering
  *
  * Props:
- * - task (object): the task data { id, text, completed, listId }
+ * - task (object): { id, text, completed, createdAt, listId }
  * - onToggle (function): marks the task as completed/uncompleted
  * - onDelete (function): deletes this task
  * - onDragStart (function): fired when drag begins
  * - onDragOverItem (function): fired when dragged over another item
  * - onDrop (function): triggered when dropped on this item
  * - onDragEnd (function): fired when dragging stops
- * - isDragging (boolean): true if this task is currently being dragged
- * - isDragOver (boolean): true if another task is hovering over this one
+ * - isDragging (boolean): indicates if the item is currently dragged
+ * - isDragOver (boolean): indicates if another item is dragged over this item
  */
+
 function TaskItem({
   task,
   onToggle,
@@ -31,7 +32,15 @@ function TaskItem({
   isDragging,
   isDragOver,
 }) {
-  // Compute CSS class list for drag states
+  // Convert createdAt safely into a Date object
+  const createdAtDate =
+    task.createdAt instanceof Date
+      ? task.createdAt
+      : task.createdAt
+      ? new Date(task.createdAt)
+      : null;
+
+  // Build class names based on drag state
   const liClassNames = [
     "task-item",
     isDragging ? "task-item--dragging" : "",
@@ -44,7 +53,7 @@ function TaskItem({
     <li
       className={liClassNames}
       onDragOver={(e) => {
-        e.preventDefault(); // Allow dropping
+        e.preventDefault();
         onDragOverItem();
       }}
       onDrop={(e) => {
@@ -52,7 +61,7 @@ function TaskItem({
         onDrop();
       }}
     >
-      {/* Drag handle used to reorder tasks */}
+      {/* Drag handle */}
       <span
         className="drag-handle"
         draggable
@@ -63,7 +72,7 @@ function TaskItem({
         ⋮⋮
       </span>
 
-      {/* Checkbox + task text + created timestamp */}
+      {/* Checkbox + task text + timestamp */}
       <label className="task-content">
         <input
           type="checkbox"
@@ -86,7 +95,7 @@ function TaskItem({
         </span>
       </label>
 
-      {/* Delete task button */}
+      {/* Delete button */}
       <button
         className="delete-button"
         type="button"

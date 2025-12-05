@@ -2,6 +2,7 @@
 
 import TaskInput from "./TaskInput";
 import TaskList from "./TaskList";
+import { useState } from "react";
 import { DEFAULT_LIST_ID } from "../hooks/useListStorage";
 
 /**
@@ -34,46 +35,64 @@ function ListContainer({
   onReorderTask,
 }) {
 
-  // Users can rename each list
-  function handleRenameClick(list) {
-    if (!onRenameList) return;
+  // Track which list is currently being renamed
+  const [editingListId, setEditingListId] = useState(null);
+  const [editingName, setEditingName] = useState("");
 
-    const newName = window.prompt("Rename list", list.name);
-    if (!newName) return;
-
-    const trimmed = newName.trim();
-    if (!trimmed) return;
-
-    onRenameList(list.id, trimmed);
+  function beginRename(list) {
+    setEditingListId(list.id);
+    setEditingName(list.name);
   }
 
-  return (
+  function commitRename(listId) {
+    const trimmed = editingName.trim();
+    if (trimmed) onRenameList(listId, trimmed);
+    setEditingListId(null);
+  }
+
+return (
     <div className="task-lists-container">
       {lists.map((list) => {
-        // Filter tasks belonging to this list
         const tasksForList = filteredTasks.filter(
           (task) => (task.listId || DEFAULT_LIST_ID) === list.id
         );
 
+        const isEditing = editingListId === list.id;
+
         return (
           <div key={list.id} className="task-list-column">
-            {/* Header row: list title + delete button */}
             <div className="task-list-header-row">
-              <h2
-                className="task-list-title"
-                title="Double-click to rename"
-                onDoubleClick={() => handleRenameClick(list)}
-              >
-                {list.name}
-              </h2>
 
-              {/* Prevent deleting the default list */}
+              {/* ⭐ If editing, show input field */}
+              {isEditing ? (
+                <input
+                  className="list-name-input"
+                  value={editingName}
+                  autoFocus
+                  onChange={(e) => setEditingName(e.target.value)}
+                  onBlur={() => commitRename(list.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") commitRename(list.id);
+                    if (e.key === "Escape") setEditingListId(null);
+                  }}
+                />
+              ) : (
+                <h2
+                  className="task-list-title"
+                  title="Double-click to rename"
+                  onDoubleClick={() => beginRename(list)}
+                >
+                  {list.name}
+                </h2>
+              )}
+
+              {/* Delete button (General disabled) */}
               {list.id === DEFAULT_LIST_ID ? (
                 <button
                   type="button"
                   className="delete-list-button delete-list-button--disabled"
                   disabled
-                  title="This is the default list"
+                  title="Cannot delete default list"
                 >
                   ✕
                 </button>
@@ -82,17 +101,14 @@ function ListContainer({
                   type="button"
                   className="delete-list-button"
                   onClick={() => onDeleteList(list.id)}
-                  title="Delete this list"
                 >
                   ✕
                 </button>
               )}
             </div>
 
-            {/* Add task input for this list */}
             <TaskInput onAddTask={(text) => onAddTask(text, list.id)} />
 
-            {/* Task list (with drag-to-reorder) */}
             <TaskList
               tasks={tasksForList}
               onToggleTask={onToggleTask}
