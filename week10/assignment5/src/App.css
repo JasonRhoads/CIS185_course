@@ -329,15 +329,6 @@ button:focus-visible {
   background-color: var(--accent-soft);
 }
 
-/*  Display date and time of creation */
-.task-date {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-
 /* Delete task button (trash "X") */
 .delete-button {
   background: transparent;

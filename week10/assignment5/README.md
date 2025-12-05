@@ -1,161 +1,98 @@
 # Project Name: Task Manager App
-## CIS 185 — Assignment 5
+## CIS 185 - Assignment 5
 ## Author: Jason Rhoads
 ## Date: 11/30/2025
 
 ---
 
 ## 1. Project Description
-The Task Manager App is a React-based productivity tool that lets users create, organize, and manage tasks across multiple customizable lists.  
-Users can:
+The Task Manager App is a simple React application that allows users to create and organize their tasks.
+Users can add new tasks, mark tasks as completed, delete tasks, and filter their task list by status.
+All tasks are saved automatically using localStorage so progress stays intact across page reloads.
 
-- Add tasks  
-- Mark tasks complete  
-- Delete tasks  
-- Reorder tasks using drag-and-drop  
-- Filter tasks by status  
-- Create and rename lists  
-- Switch between light and dark mode  
-
-All tasks and lists are automatically saved using `localStorage`, making the app fully persistent across refreshes.
-
-This project demonstrates component architecture, hooks, state management, custom hooks, drag-and-drop logic, and persistent data storage.
+This project demonstrates component-based design, React hooks, state management, and data persistence.
 
 ---
 
 ## 2. Target Audience
-This app is ideal for anyone who needs a lightweight, customizable organizational tool:
-
-- Students  
-- Professionals  
-- Anyone managing daily to-dos  
-- Users who prefer multiple lists (e.g., General, Work, School, etc.)  
-
-The interface works well on different screen sizes and supports theme switching for accessibility and comfort.
+This app is intended for anyone who needs a lightweight task tracker — students, professionals, or anyone working through a checklist.
+The UI is clean and responsive, making it easy to use on desktops or smaller screens.
 
 ---
 
 ## 3. Main Features
-
-### ✅ Task Management
-- Add new tasks  
-- Toggle completed/uncompleted  
-- Delete tasks  
-- Drag-and-drop reordering within a list  
-- Tasks show created-at timestamps  
-
-### ✅ List Management
-- Default “General” list (cannot be deleted)  
-- Additional lists can be created  
-- Lists can be renamed  
-- Deleting a list also removes its tasks  
-
-### ✅ Filtering & Counts
-- Filters: **All**, **Active**, **Completed**  
-- Dynamic counters adjust based on filter  
-
-### ✅ Persistent Storage
-- Tasks saved to `localStorage`  
-- Lists saved to `localStorage`  
-- Created dates restored as real `Date` objects  
-
-### ✅ UI / UX Features
-- Light/Dark mode toggle  
-- Responsive layout  
-- Clean panel-based design  
-- Drag handle for intuitive reordering  
+- **Add Tasks:** Input field allows users to create new tasks.
+- **Toggle Completion:** Checkbox toggles the completed state of any task.
+- **Delete Tasks:** Remove individual tasks using a delete button.
+- **Filtering:** Switch between All, Active, and Completed task views.
+- **Task Count:** Displays total active and completed tasks depending on filter.
+- **Persistent Storage:** Tasks automatically save to `localStorage` and reload on startup.
+- **Component Architecture:** Organized into TaskInput, TaskList, TaskItem, FilterButtons, TaskCount, Header, Footer, and App.
 
 ---
 
 ## 4. Technologies Used
-- **React (Vite)** — component architecture & state management  
-- **JavaScript (ES6+)** — functional logic  
-- **CSS3** — layout, responsiveness, theming  
-- **localStorage API** — data persistence  
-- **React Hooks**  
-  - `useState`, `useEffect`  
-  - Custom hooks (`useTaskStorage`, `useListStorage`)  
+- **React (Vite)** – Component architecture, state management, hooks
+- **JavaScript (ES6+)** – Logic and interaction
+- **CSS3** – Layout, styling, responsiveness
+- **localStorage API** – Data persistence
 
 ---
 
 ## 5. File Structure
-
-    src/
-    │ App.jsx                # Main application container
-    │ App.css                # Main styling and theme system
-    │ main.jsx               # React entry point
-    │ index.css              # Global CSS/reset + theme variables
-    │
-    ├── components/
-    │   │ Header.jsx         # App title + theme toggle
-    │   │ Footer.jsx         # Footer text
-    │   │ TaskInput.jsx      # Add-task form
-    │   │ TaskList.jsx       # List of TaskItem components
-    │   │ TaskItem.jsx       # Individual task row w/ drag-and-drop
-    │   │ FilterButtons.jsx  # All / Active / Completed buttons
-    │   │ TaskCount.jsx      # Dynamic task counts
-    │   │ ListInput.jsx      # Create new lists
-    │   │ ListContainer.jsx  # Renders all lists + tasks in each list
-    │
-    └── hooks/
-        │ useTaskStorage.js  # LocalStorage persistence for tasks
-        │ useListStorage.js  # LocalStorage persistence for lists
-
-Other important files:
-
-- `vite.config.js` — Vite configuration  
-- `package.json` — project metadata and dependencies  
+- `src/` – React source files
+  - `App.jsx` – Main application container
+  - `main.jsx` – React entry point
+  - `App.css` – Main stylesheet
+  - `components/` – All app components
+    - `Header.jsx` – Application header
+    - `Footer.jsx` – Application footer
+    - `TaskInput.jsx` – Input field for adding tasks
+    - `TaskList.jsx` – Renders list of tasks
+    - `TaskItem.jsx` – Individual task component
+    - `FilterButtons.jsx` – Buttons for task filtering
+    - `TaskCount.jsx` – Shows counts of tasks
+  - `hooks/` – Custom hooks
+    - `useTaskStorage.js` – Handles loading/saving tasks to localStorage
+- `index.css` – Global reset and base styling
+- `vite.config.js` – Vite configuration
+- `package.json` – Project metadata and dependencies
 
 ---
 
 ## 6. Challenges Faced
-- **Vite and Node Compatibility:**  
-  Early issues were caused by using an outdated Node version; upgrading resolved the errors.
+This assignment required using multiple React components and managing shared state between them.
+At first, keeping track of task updates across components felt tricky, but breaking the app into smaller, focused components made the flow much clearer.
 
-- **State Management Across Multiple Components:**  
-  Managing tasks, lists, and filters required lifting state up and passing callbacks between components.
-
-- **Drag-and-Drop Logic:**  
-  Implementing intuitive drag-to-reorder required handling multiple drag states, hover states, and edge cases.
-
-- **Styling & Theming:**  
-  CSS provided by AI needed refinement to match the intended layout and appearance, especially when adding dark mode.
-
-- **LocalStorage Parsing:**  
-  Since JSON cannot store Date objects, created-at timestamps had to be reconstructed when loading tasks.
-
-Overall, the project strengthened understanding of hooks, custom hooks, state lifting, and how React rerenders component trees.
+Another challenge was configuring Vite and Node correctly — early errors came from outdated Node versions.
+I also created a custom React hook (`useTaskStorage`) to clean up the App component and centralize all localStorage logic.
+As with previous projects, some styling provided by AI needed adjustment to fit my intended design, so I refined the CSS to create a clean, consistent layout.
 
 ---
 
 ## 7. AI Tools Used
-ChatGPT assisted with:
-
-- Building component architecture  
-- Designing drag-and-drop logic  
-- Creating custom hooks for localStorage  
-- Debugging Vite/Node setup issues  
-- Suggesting styling and layout improvements  
-- Helping structure theme switching  
-- Improving readability, organization, and documentation  
-- Writing this README  
+ChatGPT:
+- Helped structure and build React components
+- Created the custom hook for localStorage persistence
+- Debugged issues with Vite and Node compatibility
+- Assisted with filtering logic and state updates
+- Provided ideas and guidance for CSS layout and styling
+- Helped refactor code for better organization and readability
+- Assisted in writing this README
 
 ---
 
 ## 8. Future Improvements
-- Drag tasks *between* lists (Kanban-style)  
-- Inline renaming of tasks  
-- Editable descriptions or notes on tasks  
-- Sorting options (alphabetical, oldest/newest)  
-- A “Clear Completed Tasks” button  
-- Search bar for filtering by keyword  
-- Custom list colors or icons  
-- Better mobile drag-and-drop support  
+- Add drag-and-drop functionality for task ordering
+- Add multiple task lists (Kanban boards)
+- Add task editing (rename tasks inline)
+- Add “Clear Completed” button
+- Add sort options (newest, oldest, alphabetical)
+- Add timestamps (“created X minutes ago”)
 
 ---
 
 ## 9. Credits
-- **[React Documentation](https://react.dev/)**  
-- **[MDN Web Docs](https://developer.mozilla.org/)** (JavaScript, localStorage, drag events)  
-- **[Vite Documentation](https://vitejs.dev/)**  
-- **ChatGPT** — debugging, component planning, code refactoring, and UI guidance  
+- React documentation
+- MDN Web Docs for JavaScript and localStorage
+- ChatGPT for debugging, coding assistance, and UI suggestions

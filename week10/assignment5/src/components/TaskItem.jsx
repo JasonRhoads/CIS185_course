@@ -73,10 +73,6 @@ function TaskItem({
 
         <span className={task.completed ? "task-text completed" : "task-text"}>
           {task.text}
-          <small className="task-date">
-            {task.createdAt.toLocaleDateString()}{" "}
-            {task.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-          </small>
         </span>
       </label>
 
