@@ -33,6 +33,20 @@ function ListContainer({
   onRenameList,
   onReorderTask,
 }) {
+
+  // Users can rename each list
+  function handleRenameClick(list) {
+    if (!onRenameList) return;
+
+    const newName = window.prompt("Rename list", list.name);
+    if (!newName) return;
+
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+
+    onRenameList(list.id, trimmed);
+  }
+
   return (
     <div className="task-lists-container">
       {lists.map((list) => {
@@ -48,9 +62,7 @@ function ListContainer({
               <h2
                 className="task-list-title"
                 title="Double-click to rename"
-                onDoubleClick={() =>
-                  onRenameList && onRenameList(list.id, list.name)
-                }
+                onDoubleClick={() => handleRenameClick(list)}
               >
                 {list.name}
               </h2>
