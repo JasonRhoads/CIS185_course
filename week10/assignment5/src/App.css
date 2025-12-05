@@ -355,3 +355,12 @@ button:focus-visible {
   font-size: 0.9rem;
   color: var(--text-muted);
 }
+
+
+/* Task Date and time */
+.task-date {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}

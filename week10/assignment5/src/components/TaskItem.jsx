@@ -63,7 +63,7 @@ function TaskItem({
         ⋮⋮
       </span>
 
-      {/* Checkbox + task text */}
+      {/* Checkbox + task text + created timestamp */}
       <label className="task-content">
         <input
           type="checkbox"
@@ -73,6 +73,16 @@ function TaskItem({
 
         <span className={task.completed ? "task-text completed" : "task-text"}>
           {task.text}
+
+          {createdAtDate && (
+            <small className="task-date">
+              {createdAtDate.toLocaleDateString()}{" "}
+              {createdAtDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </small>
+          )}
         </span>
       </label>
 
